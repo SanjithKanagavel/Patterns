@@ -1,1 +1,1 @@
-Simple Dictionary iOS App
+Simple Dictionary iOS App.
