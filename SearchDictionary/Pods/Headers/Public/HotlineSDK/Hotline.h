@@ -1,0 +1,1 @@
+../../../HotlineSDK/HotlineSDK/Hotline.h
