@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "-getWordCombinations:word:"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500818418.627998"
+            timestampString = "500823166.025127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "-applyWordCombinations:index:formation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "-getCombinations:numberIndex:groups:lastGroupIndex:remainingPointers:"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500818418.627998"
+            timestampString = "500823166.025127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
             landmarkName = "-applyWordCombinations:index:formation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
             landmarkName = "-applyWordCombinations:index:formation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "-addFavourite:searchValue:"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "461"
-            endingLineNumber = "461"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "-addFavourite:searchValue:"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
             landmarkName = "-addFavourite:searchValue:"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500818418.627998"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "-styleNavigation"
             landmarkType = "7">
          </BreakpointContent>

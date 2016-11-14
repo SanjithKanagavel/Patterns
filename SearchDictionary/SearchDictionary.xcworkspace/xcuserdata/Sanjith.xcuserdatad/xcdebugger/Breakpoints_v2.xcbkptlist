@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "-favouritesResultsController"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
             landmarkName = "-recentResultsController"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "-recentResultsController"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "-recentResultsController"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "-fetchRecentSearches"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,7 +104,7 @@
                   moduleName = "SearchDictionary"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Sanjith/Documents/Projects/Dictionary/SearchDictionary/SearchDictionary/ViewController.h"
-                  timestampString = "500819001.685485"
+                  timestampString = "500821004.976984"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "10"
@@ -119,7 +119,7 @@
                   moduleName = "SearchDictionary"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Sanjith/Documents/Projects/Dictionary/SearchDictionary/SearchDictionary/ViewController.h"
-                  timestampString = "500819001.687367"
+                  timestampString = "500821004.980137"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "10"
@@ -136,12 +136,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500819000.582707"
+            timestampString = "500826141.614826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-startSearch:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SearchDictionary/ViewController.m"
+            timestampString = "500825922.584362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-keyboardDidShow:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

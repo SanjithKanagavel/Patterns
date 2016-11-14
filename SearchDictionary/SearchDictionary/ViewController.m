@@ -14,6 +14,7 @@ NSInteger count,screenWidth,screenHeight;
 NSArray *resArr,*colors,*wordArray,*recentSearches;
 NSMutableSet *tempArr;
 NSThread *reloadThread;
+CGFloat KeyboardHeight;
 
 #pragma mark - ViewController functions
 
@@ -23,9 +24,64 @@ NSThread *reloadThread;
     [self configureCoreData];
 }
 
--(void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self updateNavigationBar];
+    [self registerForKeyboardNotifications];
+}
+
+-(void) viewDidDisappear:(BOOL)animated {
+    [self deregisterForKeyboardNotification];
+    [super viewDidDisappear:animated];
+}
+
+-(void)deregisterForKeyboardNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardDidShow: (NSNotification *) notification{
+    if(self.suggestionView == nil){
+        NSDictionary *keyboardInfo = [notification userInfo];
+        CGRect keyboardSize = [[keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        KeyboardHeight = keyboardSize.size.height;
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        self.suggestionView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.suggestionView.frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) );
+        self.suggestionTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - KeyboardHeight - 100) style:UITableViewStylePlain];
+        self.suggestionTableView.backgroundColor = [UIColor clearColor];
+        self.suggestionTableView.delegate = self;
+        self.suggestionTableView.dataSource = self;
+        [self.suggestionTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [self.suggestionTableView setSeparatorColor:[UIColor clearColor]];
+        [self.suggestionTableView registerClass:[CustomSearchCell class] forCellReuseIdentifier:searchResultCell];
+        [self.suggestionTableView setAlpha:0];
+        [self.suggestionView setAlpha:0];
+        [self.suggestionView addSubview:self.suggestionTableView];
+    }
+    [self.suggestionTableView setContentOffset:CGPointZero animated:YES];
+    [self.view addSubview:self.suggestionView];
+    [self fetchRecentSearches];
+    [self.suggestionTableView reloadData];
+    [UIView animateWithDuration:0 delay:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.suggestionView setAlpha:1.0];
+        [self.suggestionTableView setAlpha:1.0];
+    } completion:nil];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)notification
+{
+    [self.suggestionView removeFromSuperview];
 }
 
 -(BOOL)prefersStatusBarHidden{
@@ -173,28 +229,10 @@ NSThread *reloadThread;
 }
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    UIVisualEffect *blurEffect;
-    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    // must set delegate & dataSource, otherwise the the table will be empty and not responsive
-    self.suggestionView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    self.suggestionView.frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) );
-    
-    self.suggestionTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    self.suggestionTableView.backgroundColor = [UIColor clearColor];
-    self.suggestionTableView.delegate = self;
-    self.suggestionTableView.dataSource = self;
-    [self.suggestionTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.suggestionTableView setSeparatorColor:[UIColor clearColor]];
-    [self.suggestionTableView registerClass:[CustomSearchCell class] forCellReuseIdentifier:searchResultCell];
-    [self.suggestionView addSubview:self.suggestionTableView];
-    [self.view addSubview:self.suggestionView];
-    [self fetchRecentSearches];
-    [self.suggestionTableView reloadData];
     return YES;
 }
 
 -(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    [self.suggestionView removeFromSuperview];
     return YES;
 }
 
