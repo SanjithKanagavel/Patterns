@@ -1,18 +1,46 @@
-//
-//  Constants.h
-//  SearchDictionary
-//
-//  Created by Sanjith J K on 09/11/16.
-//  Copyright © 2016 Sanjith Kanagavel. All rights reserved.
-//
+//General Strings
+static NSString  *emptyStr = @"";
+static NSString *hypenStr = @"-";
+static NSString *abc = @"abc";
+static NSString *def = @"def";
+static NSString *ghi = @"ghi";
+static NSString *jkl = @"jkl";
+static NSString *mno = @"mno";
+static NSString *pqrs = @"pqrs";
+static NSString *tuv = @"tuv";
+static NSString *wxyz = @"wxyz";
+static NSString *favourites = @"Favourites";
+static NSString *wordsStr = @"words";
+static NSString *txtStr = @"txt";
+static NSString *newLineStr = @"\n";
+static NSString *search = @"Search";
 
-#ifndef Constants_h
-#define Constants_h
+//Model Strings
+static NSString *favourite = @"Favourite";
+static NSString *updateTime = @"updateTime";
+static NSString *searchStr = @"searchStr";
+static NSString *searchValue = @"searchValue";
 
+//UI Strings
+static NSString *_searchFieldStr = @"_searchField";
+static NSString *fontName = @"HelveticaNeue-CondensedBlack";
+static NSString *noResultsStr = @"No results";
+static NSString *searchResultCell = @"SearchResultCell";
+static NSString *favouriteCell = @"FavouriteCell";
+static NSString *cancelBtnStr = @"cancelButton";
+static NSString *naviBgstr = @"naviBg";
+static NSString *helpStr = @"Help-44";
+static NSString *starUnfilledStr = @"starUnfilled";
+static NSString *starFilledStr = @"starFilled";
 
-#endif /* Constants_h */
+//Format - Regex Strings
+static NSString *tStrFormat = @"%@%@";
+static NSString *dateFormat = @"dd-mm-yyyy hh:mm:ss";
+static NSString *numRegex = @"[0-9]*";
+static NSString *matchPredicate = @"SELF MATCHES %@";
+static NSString *searchValueEquals = @"searchValue == %@";
 
-//Flat Colors. Credits to : https://flatuicolors.com/
+//Flat Colors
 static NSString *turquoise = @"#1abc9c";
 static NSString *greenSea =  @"#16a085";
 static NSString *emerald = @"#2ecc71";

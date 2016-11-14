@@ -1,11 +1,3 @@
-//
-//  ViewController.m
-//  SearchDictionary
-//
-//  Created by Sanjith J K on 08/11/16.
-//  Copyright © 2016 Sanjith Kanagavel. All rights reserved.
-//
-
 #import "ViewController.h"
 #import "SearchResultCell.h"
 
@@ -45,7 +37,7 @@ NSThread *reloadThread;
 
 -(void) configureBaseScreen {
     
-    wordArray = [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"words" ofType:@"txt"] encoding:NSUTF8StringEncoding error:NULL] componentsSeparatedByString:@"\n"];
+    wordArray = [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:wordsStr ofType:txtStr] encoding:NSUTF8StringEncoding error:NULL] componentsSeparatedByString:newLineStr];
     count = 0;
     startChange = false;
     resArr = [[NSArray alloc] init];
@@ -61,18 +53,18 @@ NSThread *reloadThread;
     [self.view addSubview:self.indicator];
     [self.indicator bringSubviewToFront:self.view];
     
-    [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:@"SearchResultCell"];
+    [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:searchResultCell];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleBlack];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
     [self.searchBar setTintColor:[UIColor whiteColor]];
     
-    UITextField *textField = [self.searchBar valueForKey: @"_searchField"];
+    UITextField *textField = [self.searchBar valueForKey: _searchFieldStr];
     [textField setTextColor:[UIColor blackColor]];
-    [textField setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:17.0]];
-    UIButton *button = [self.searchBar valueForKey: @"cancelButton"];
+    [textField setFont:[Utility getFont:17]];
+    UIButton *button = [self.searchBar valueForKey: cancelBtnStr];
     [button setTintColor:[UIColor whiteColor]];
-    [button.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:17.0]];
+    [button.titleLabel setFont:[Utility getFont:17]];
     [self styleNavigation];
 }
 
@@ -82,29 +74,29 @@ NSThread *reloadThread;
 }
 
 - (void) styleNavigation {
+    
+    UIImage *image = [UIImage imageNamed:naviBgstr];
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
-    UIImage *image = [UIImage imageNamed:@"naviBg"];
-    if(self.navigationItem.rightBarButtonItem == nil){
-        NSLog(@"nil");
-    }
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    NSDictionary *fontValues = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil];
-    NSDictionary *smallFontValues = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:12.0], NSFontAttributeName, nil];
+    
+    NSDictionary *fontValues = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,[Utility getFont:21], NSFontAttributeName, nil];
+    NSDictionary *smallFontValues = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,[Utility getFont:12], NSFontAttributeName, nil];
     
     [self.navigationController.navigationBar setTitleTextAttributes: fontValues];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:fontValues  forState:UIControlStateNormal];
-    [self.tabBarController.tabBar setBarTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"naviBg"]]];
+    [self.tabBarController.tabBar setBarTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
     [self.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:smallFontValues forState:UIControlStateNormal];
+    
 }
 
 -(void) updateNavigationBar {
-    [self.navigationController.navigationBar.topItem setTitle:@"Search"];
+    [self.navigationController.navigationBar.topItem setTitle:search];
     UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnRight setFrame:CGRectMake(0, 0, 33, 33)];
-    [btnRight setImage:[UIImage imageNamed:@"Help-44" ] forState:UIControlStateNormal];
+    [btnRight setImage:[UIImage imageNamed:helpStr ] forState:UIControlStateNormal];
     [btnRight addTarget:self action:@selector(showHelp) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barBtnRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
     [barBtnRight setTintColor:[UIColor whiteColor]];
@@ -130,7 +122,7 @@ NSThread *reloadThread;
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    searchBar.text = @"";
+    searchBar.text = emptyStr;
     [searchBar resignFirstResponder];
 }
 
@@ -169,23 +161,23 @@ int combinationsCount = 0;
 -(NSString *) getStringcode : (NSInteger) number {
     switch (number) {
         case 2:
-            return @"abc";
+            return abc;
         case 3:
-            return @"def";
+            return def;
         case 4:
-            return @"ghi";
+            return ghi;
         case 5:
-            return @"jkl";
+            return jkl;
         case 6:
-            return @"mno";
+            return mno;
         case 7:
-            return @"pqrs";
+            return pqrs;
         case 8:
-            return @"tuv";
+            return tuv;
         case 9:
-            return @"wxyz";
+            return wxyz;
         default:
-            return @"";
+            return emptyStr;
     }
 }
 
@@ -199,7 +191,7 @@ int combinationsCount = 0;
     for ( NSInteger i=0; i<[charVals length]; i++) {
         NSString *removedStr = [charVals substringWithRange:NSMakeRange(i,1)];
         NSString *remainStr = [word substringWithRange:NSMakeRange(1,[word length]-1)];
-        [arr addObjectsFromArray:[self getWordCombinations:[NSString stringWithFormat:@"%@%@",prefix,removedStr] word:remainStr]];
+        [arr addObjectsFromArray:[self getWordCombinations:[NSString stringWithFormat:tStrFormat,prefix,removedStr] word:remainStr]];
     }
     return arr;
 }
@@ -247,8 +239,8 @@ int combinationsCount = 0;
     }
     if(index == [groups count]) { //insert
         if(![tempArr containsObject:formation]) {
-            NSString *numberRegex = @"[0-9]*";
-            NSPredicate *numberTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
+            NSString *numberRegex = numRegex;
+            NSPredicate *numberTest = [NSPredicate predicateWithFormat:matchPredicate, numberRegex];
             if(![numberTest evaluateWithObject:formation]) {
                 [tempArr addObject:formation];
             }
@@ -259,7 +251,7 @@ int combinationsCount = 0;
     NSMutableArray *combinationArr;
     NSMutableArray *possibleCombos = [[NSMutableArray alloc]init];
     if([groups[index] length] > (([self.searchBar.text length]/2)-1)) {
-        combinationArr = [self getWordCombinations:@"" word:groups[index]];
+        combinationArr = [self getWordCombinations:emptyStr word:groups[index]];
         NSMutableSet *set1 = [NSMutableSet setWithArray: combinationArr];
         NSSet *set2 = [NSSet setWithArray: wordArray];
         [set1 intersectSet: set2];
@@ -269,14 +261,14 @@ int combinationsCount = 0;
     if([possibleCombos count] == 0) {
         copyStr = [copyStr stringByAppendingString:groups[index]];
         if(index+1 < [groups count]) {
-            copyStr = [copyStr stringByAppendingString:@"-"];
+            copyStr = [copyStr stringByAppendingString:hypenStr];
         }
         [self applyWordCombinations:groups index:index+1 formation:copyStr];
     } else {
         for( int i = 0; i<[possibleCombos count]; i++) {
             copyStr = [formation stringByAppendingString:possibleCombos[i]];
             if(index+1 < [groups count]) {
-                copyStr = [copyStr stringByAppendingString:@"-"];
+                copyStr = [copyStr stringByAppendingString:hypenStr];
             }
             [self applyWordCombinations:groups index:index+1 formation:copyStr];
         }
@@ -304,11 +296,11 @@ int combinationsCount = 0;
 
 -(NSString *)processString:(NSString *)str {
     NSString *pString = [[NSString alloc]init];
-    NSArray *subArrays = [str componentsSeparatedByString:@"-"];
+    NSArray *subArrays = [str componentsSeparatedByString:hypenStr];
     for(int i=0;i<[subArrays count]-1;i++) {
         pString = [pString stringByAppendingString:subArrays[i]];
         if(!([self onlyNumbers:subArrays[i]] && [self onlyNumbers:subArrays[i+1]])){
-            pString = [pString stringByAppendingString:@"-"];
+            pString = [pString stringByAppendingString:hypenStr];
         }
     }
     pString = [pString stringByAppendingString:subArrays[[subArrays count]-1]];
@@ -316,8 +308,8 @@ int combinationsCount = 0;
 }
 
 -(BOOL) onlyNumbers : (NSString *)str {
-    NSString *numberRegex = @"[0-9]*";
-    NSPredicate *regexPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
+    NSString *numberRegex = numRegex;
+    NSPredicate *regexPredicate = [NSPredicate predicateWithFormat:matchPredicate, numberRegex];
     return [regexPredicate evaluateWithObject:str];
 }
 
@@ -325,8 +317,8 @@ int combinationsCount = 0;
     NSInteger count = 0;
     for(int i = 0;i<[str length];i++){
         NSString *val = [str substringWithRange:NSMakeRange(i, 1)];
-        NSString *numberRegex = @"[0-9]*";
-        NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
+        NSString *numberRegex = numRegex;
+        NSPredicate *test = [NSPredicate predicateWithFormat:matchPredicate, numberRegex];
         if([test evaluateWithObject:val]) {
             count++;        
         }
@@ -342,48 +334,45 @@ int combinationsCount = 0;
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:favourite inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updateTime" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:updateTime ascending:NO];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     return _fetchedResultsController;
 }
 
-- (void)addFavourite:(NSString *)searchStr searchValue:(NSString *)searchValue {
+- (void)addFavourite:(NSString *)sStr searchValue:(NSString *)sVal {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     NSDate *date = [NSDate date];
-    [newManagedObject setValue:date forKey:@"updateTime"];
-    [newManagedObject setValue:searchStr forKey:@"searchStr"];
-    [newManagedObject setValue:searchValue forKey:@"searchValue"];
+    [newManagedObject setValue:date forKey:updateTime];
+    [newManagedObject setValue:sStr forKey:searchStr];
+    [newManagedObject setValue:sVal forKey:searchValue];
     NSError *error = nil;
     if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    
 }
 
 - (void)removeFavourite:(NSString *)searchStr searchValue:(NSString *)searchValue {
     NSManagedObjectContext *moc = [self.fetchedResultsController managedObjectContext];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Favourite"];
-    NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:@"searchValue == %@", searchValue];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:favourite];
+    NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:searchValueEquals, searchValue];
     request.predicate = searchStrPredicate;
     [request setReturnsObjectsAsFaults:NO];
     NSError *error = nil;
     NSArray *results = [moc executeFetchRequest:request error:&error];
     
     if (!results) {
-        NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     for (NSManagedObject *product in results) {
@@ -393,15 +382,14 @@ int combinationsCount = 0;
 
 - (BOOL)retriveFavourite:(NSString *)searchValue {
     NSManagedObjectContext *moc = [self.fetchedResultsController managedObjectContext];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Favourite"];
-    NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:@"searchValue == %@", searchValue];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:favourite];
+    NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:searchValueEquals, searchValue];
     request.predicate = searchStrPredicate;
     [request setReturnsObjectsAsFaults:NO];
     NSError *error = nil;
     NSArray *results = [moc executeFetchRequest:request error:&error];
     
     if (!results) {
-        NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     if([results count] == 0) {
@@ -426,9 +414,9 @@ int combinationsCount = 0;
     if([resArr count] == 0) {
         self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
         self.label.center = self.view.center;
-        [self.label setText:@"No results"];
+        [self.label setText:noResultsStr];
         [self.label setTextAlignment:NSTextAlignmentCenter];
-        [self.label setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0]];
+        [self.label setFont:[Utility getFont:21]];
     }
     else {
     }
@@ -437,7 +425,7 @@ int combinationsCount = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SearchResultCell *cell;
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SearchResultCell" owner:self options:nil];
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:searchResultCell owner:self options:nil];
     cell = [nib objectAtIndex:0];
     NSUInteger colorIndex = (NSUInteger)indexPath.row;
     if( colorIndex > [colors count] - 1 ) {
