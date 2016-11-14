@@ -115,9 +115,9 @@ NSThread *reloadThread;
     for(int i=0; i<[searchStr length]; i++) {
         [self getCombinations:searchStr numberIndex:0 groups:nil lastGroupIndex:0 remainingPointers:i];
     }
+    tempArr = [self processSet];
     resArr = [tempArr allObjects];
-    
-    [self processArray];
+    [self sortArray];
 }
 
 #pragma mark - Help functions
@@ -268,17 +268,23 @@ int combinationsCount = 0;
     }
     if([possibleCombos count] == 0) {
         copyStr = [copyStr stringByAppendingString:groups[index]];
+        if(index+1 < [groups count]) {
+            copyStr = [copyStr stringByAppendingString:@"-"];
+        }
         [self applyWordCombinations:groups index:index+1 formation:copyStr];
     } else {
         for( int i = 0; i<[possibleCombos count]; i++) {
             copyStr = [formation stringByAppendingString:possibleCombos[i]];
+            if(index+1 < [groups count]) {
+                copyStr = [copyStr stringByAppendingString:@"-"];
+            }
             [self applyWordCombinations:groups index:index+1 formation:copyStr];
         }
     }
     
 }
 
--(void) processArray {
+-(void) sortArray {
     resArr = [resArr sortedArrayUsingComparator:^NSComparisonResult(NSString *first, NSString *second){
         return [self sortToText:first withLengthOf:second];
     }];
@@ -288,6 +294,32 @@ int combinationsCount = 0;
     });
 }
 
+-(NSMutableSet *)processSet {
+    NSMutableSet *refinedSet = [[NSMutableSet alloc]init];
+    for(NSString *str in tempArr){
+        [refinedSet addObject:[self processString:str]];
+    }
+    return refinedSet;
+}
+
+-(NSString *)processString:(NSString *)str {
+    NSString *pString = [[NSString alloc]init];
+    NSArray *subArrays = [str componentsSeparatedByString:@"-"];
+    for(int i=0;i<[subArrays count]-1;i++) {
+        pString = [pString stringByAppendingString:subArrays[i]];
+        if(!([self onlyNumbers:subArrays[i]] && [self onlyNumbers:subArrays[i+1]])){
+            pString = [pString stringByAppendingString:@"-"];
+        }
+    }
+    pString = [pString stringByAppendingString:subArrays[[subArrays count]-1]];
+    return pString;
+}
+
+-(BOOL) onlyNumbers : (NSString *)str {
+    NSString *numberRegex = @"[0-9]*";
+    NSPredicate *regexPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
+    return [regexPredicate evaluateWithObject:str];
+}
 
 -(NSInteger) countNumbers : (NSString *)str {
     NSInteger count = 0;
@@ -299,7 +331,6 @@ int combinationsCount = 0;
             count++;        
         }
     }
-    NSLog(@"count : %@ %d",str,count);
     return count;
 }
 
@@ -401,7 +432,6 @@ int combinationsCount = 0;
     }
     else {
     }
-    NSLog(@"Total Objects : %d",[resArr count]);
     return [resArr count];
 }
 
