@@ -1,4 +1,6 @@
 #import "AppDelegate.h"
+#import "Hotline.h"
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate ()
 @end
@@ -7,6 +9,36 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"6a008b3d-6596-4227-9a8d-41b9abe92621"  andAppKey:@"e2ce4ba1-fb0c-431b-99cb-f6602ac4347e"];
+    config.voiceMessagingEnabled = YES;
+    config.pictureMessagingEnabled = YES;
+    config.cameraCaptureEnabled = YES;
+    config.agentAvatarEnabled = YES;
+    config.showNotificationBanner = YES;
+    
+    [[Hotline sharedInstance] initWithConfig:config];
+    
+    
+    /*if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+    }
+    else{
+        
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        
+    }*/
+    
+    [self.window makeKeyAndVisible];
+    if ([[Hotline sharedInstance]isHotlineNotification:launchOptions]) {
+        [[Hotline sharedInstance]handleRemoteNotification:launchOptions
+                                              andAppstate:application.applicationState];
+    }
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     return YES;
 }
 
@@ -24,6 +56,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 
@@ -31,26 +64,24 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+- (void) application:(UIApplication *)app didReceiveRemoteNotification:(NSDictionary *)info{
+    if ([[Hotline sharedInstance]isHotlineNotification:info]) {
+        [[Hotline sharedInstance]handleRemoteNotification:info andAppstate:app.applicationState];
+    }
+}
+
 #pragma - Core Data Stack
-/**
- Setting up proper get setter for the fields they run automatically
- **/
+
 @synthesize mom = _mom;
 @synthesize moc = _moc;
 @synthesize psc = _psc;
-
-/*
- * Url to documentary function which be used in psc
- */
 
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-/*
- * Model  is usually setting up the url link to the file and linking the file
- */
 -(NSManagedObjectModel *) mom {
     
     if(_mom != nil) {
@@ -60,12 +91,6 @@
     _mom  = [[NSManagedObjectModel alloc]initWithContentsOfURL:modelUrl];
     return _mom;
 }
-
-/* Steps for creating :
- * 1. Allocate itself with mom
- * 2. Get sql url from documents directory
- * 3. addPersistancStoreWithType
- */
 
 -(NSPersistentStoreCoordinator *) psc {
     if(_psc!=nil) {
@@ -87,10 +112,6 @@
     return _psc;
 }
 
-/* Steps to create ManagedObjectContext
- * 1. Create moc with concurrency main queue
- * 2. Add Persistent Store Coordinator to moc
- */
 -(NSManagedObjectContext *) moc {
     if(_moc != nil) {
         return _moc;

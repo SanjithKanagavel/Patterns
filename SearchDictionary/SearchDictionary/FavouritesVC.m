@@ -1,6 +1,4 @@
 #import "FavouritesVC.h"
-#import "SearchDictionary-Swift.h"
-#import "FavouriteCell.h"
 
 @interface FavouritesVC ()
 
@@ -81,7 +79,7 @@ NSArray *bgColors;
 #pragma mark - Help functions
 
 -(void)showHelp {
-    
+    [[Hotline sharedInstance] showFAQs:self];
 }
 
 #pragma mark - Fetched results functions

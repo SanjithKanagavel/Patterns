@@ -115,7 +115,7 @@ NSThread *reloadThread;
 #pragma mark - Help functions
 
 -(void)showHelp {
-    
+    [[Hotline sharedInstance] showFAQs:self];
 }
 
 #pragma mark - Search bar functions

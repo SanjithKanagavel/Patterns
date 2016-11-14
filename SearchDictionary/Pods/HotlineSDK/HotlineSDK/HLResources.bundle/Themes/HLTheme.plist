@@ -5,7 +5,7 @@
 	<key>ConversationsUI</key>
 	<dict>
 		<key>ChatBubbleMessageFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ChatBubbleMessageFontSize</key>
 		<string>14.0f</string>
 		<key>AgentMessageTextColor</key>
@@ -103,7 +103,7 @@
 	<key>Notification</key>
 	<dict>
 		<key>ChannelTitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ChannelTitleFontSize</key>
 		<string>14</string>
 		<key>ChannelTitleFontColor</key>
@@ -113,7 +113,7 @@
 		<key>ChannelIconBackgroundColor</key>
 		<string>FFFFFF</string>
 		<key>MessageFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>MessageFontSize</key>
 		<string>14</string>
 		<key>MessageFontColor</key>
@@ -126,19 +126,19 @@
 		<key>ChannelTitleFontColor</key>
 		<string>222222</string>
 		<key>ChannelTitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ChannelTitleFontSize</key>
 		<string>15.0f</string>
 		<key>ChannelDescriptionFontColor</key>
 		<string>ABABAB</string>
 		<key>ChannelDescriptionFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ChannelDescriptionFontSize</key>
 		<string>14.0f</string>
 		<key>LastUpdatedTimeFontColor</key>
 		<string>ABABAB</string>
 		<key>LastUpdatedTimeFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>LastUpdatedTimeFontSize</key>
 		<string>12.0f</string>
 		<key>UnreadBadgeColor</key>
@@ -146,7 +146,7 @@
 		<key>UnreadBadgeTitleColor</key>
 		<string>FFFFFF</string>
 		<key>UnreadBadgeFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>UnreadBadgeFontSize</key>
 		<string>13f</string>
 		<key>ChannelIconPlaceholderBackgroundColor</key>
@@ -154,12 +154,12 @@
 		<key>ChannelIconPlaceholderTextFontSize</key>
 		<string>20.0f</string>
 		<key>ChannelIconPlaceholderTextFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 	</dict>
 	<key>EmptyResultView</key>
 	<dict>
 		<key>MessageFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>MessageTextColor</key>
 		<string>525454</string>
 		<key>MessageFontSize</key>
@@ -168,19 +168,19 @@
 	<key>NavigationBar</key>
 	<dict>
 		<key>BackgroundColor</key>
-		<string>F8F8F8</string>
-		<key>ButtonColor</key>
-		<string>0079FF</string>
-		<key>ButtonFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
-		<key>ButtonFontSize</key>
-		<string>16.0f</string>
-		<key>TitleColor</key>
 		<string>000000</string>
+		<key>ButtonColor</key>
+		<string>FFFFFF</string>
+		<key>ButtonFontName</key>
+		<string>HelveticaNeue-CondensedBlack</string>
+		<key>ButtonFontSize</key>
+		<string>21.0f</string>
+		<key>TitleColor</key>
+		<string>FFFFFF</string>
 		<key>TitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>TitleFontSize</key>
-		<string>17.0f</string>
+		<string>21.0f</string>
 	</dict>
 	<key>OverallSettings</key>
 	<dict>
@@ -200,17 +200,17 @@
 	<key>SearchBar</key>
 	<dict>
 		<key>CancelButtonColor</key>
-		<string>0079FF</string>
+		<string>000000</string>
 		<key>CancelButtonFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>CancelButtonFontSize</key>
-		<string>14.0f</string>
+		<string>21.0f</string>
 		<key>FontColor</key>
 		<string>000000</string>
 		<key>FontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>FontSize</key>
-		<string>13.0f</string>
+		<string>20.0f</string>
 		<key>InnerBackgroundColor</key>
 		<string>FFFFFF</string>
 		<key>OuterBackgroundColor</key>
@@ -227,37 +227,37 @@
 		<key>TitleFontColor</key>
 		<string>222222</string>
 		<key>TitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>TitleFontSize</key>
-		<string>14.0f</string>
+		<string>21.0f</string>
 		<key>DetailFontColor</key>
 		<string>ACACAC</string>
 		<key>DetailFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>DetailFontSize</key>
-		<string>14.0f</string>
+		<string>21.0f</string>
 	</dict>
 	<key>ArticlesList</key>
 	<dict>
 		<key>TitleFontColor</key>
 		<string>525252</string>
 		<key>TitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>TitleFontSize</key>
-		<string>14.0f</string>
+		<string>18.0f</string>
 	</dict>
 	<key>GridViewCell</key>
 	<dict>
 		<key>TitleFontColor</key>
 		<string>222222</string>
 		<key>TitleFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>TitleFontSize</key>
-		<string>14.0f</string>
+		<string>21.0f</string>
 		<key>ImageViewBackgroundColor</key>
 		<string>FFFFFF</string>
 		<key>BorderColor</key>
-		<string>F2F2F2</string>
+		<string>FFFFFF</string>
 	</dict>
 	<key>Images</key>
 	<dict>

@@ -132,14 +132,14 @@
 		C5EC3C101DD1DF05003F12AB = {
 			isa = PBXGroup;
 			children = (
-				C551497F1DD88876008C4BB1 /* Favourite+CoreDataClass.swift */,
-				C55149801DD88876008C4BB1 /* Favourite+CoreDataProperties.swift */,
 				C5EC3C1B1DD1DF06003F12AB /* SearchDictionary */,
 				C5EC3C351DD1DF06003F12AB /* SearchDictionaryTests */,
 				C5EC3C401DD1DF06003F12AB /* SearchDictionaryUITests */,
 				C5EC3C1A1DD1DF06003F12AB /* Products */,
 				4C2766A9AC61F57CAF40926E /* Pods */,
 				B54A017C9FF3D7D4E56CC020 /* Frameworks */,
+				C551497F1DD88876008C4BB1 /* Favourite+CoreDataClass.swift */,
+				C55149801DD88876008C4BB1 /* Favourite+CoreDataProperties.swift */,
 			);
 			sourceTree = "<group>";
 		};

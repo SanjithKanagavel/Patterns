@@ -1,6 +1,9 @@
 #import "UIKit/UIKit.h"
 #import "CoreData/CoreData.h"
 #import "AppDelegate.h"
+#import "Hotline.h"
+#import "SearchDictionary-Swift.h"
+#import "FavouriteCell.h"
 #import "Utility.h"
 
 @interface FavouritesVC : UIViewController <NSFetchedResultsControllerDelegate>
