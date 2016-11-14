@@ -2,7 +2,7 @@
 #import "CoreData/CoreData.h"
 #import "AppDelegate.h"
 #import "Hotline.h"
-#import "SearchDictionary-Swift.h"
+#import "FavouriteMO.h"
 #import "FavouriteCell.h"
 #import "Utility.h"
 

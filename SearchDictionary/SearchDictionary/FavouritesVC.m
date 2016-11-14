@@ -115,7 +115,7 @@ NSArray *bgColors;
     NSError *error = nil;
     NSArray *results = [moc executeFetchRequest:request error:&error];
     [favArr removeAllObjects];
-    for(Favourite *fav in results) {
+    for(FavouriteMO *fav in results) {
         [favArr addObject:fav];
     }
     if (!results) {
@@ -159,11 +159,11 @@ NSArray *bgColors;
         colorIndex = colorIndex % [bgColors count];
     }
     [cell setViewColour:[Utility colorFromHexString:bgColors[colorIndex]]];
-    cell.searchVal.text = ((Favourite *)favArr[indexPath.row]).searchValue;
-    cell.searchStr.text = ((Favourite *)favArr[indexPath.row]).searchStr;
+    cell.searchVal.text = ((FavouriteMO *)favArr[indexPath.row]).searchValue;
+    cell.searchStr.text = ((FavouriteMO *)favArr[indexPath.row]).searchStr;
     NSDateFormatter *dateformate=[[NSDateFormatter alloc]init];
     [dateformate setDateFormat:dateFormat];
-    NSString *date = [dateformate stringFromDate:((Favourite *)favArr[indexPath.row]).updateTime];
+    NSString *date = [dateformate stringFromDate:((FavouriteMO *)favArr[indexPath.row]).updateTime];
     cell.updateTime.text = date;
     return cell;
     

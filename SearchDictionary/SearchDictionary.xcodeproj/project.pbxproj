@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B47A1710018349DF9141D3EE /* Pods_SearchDictionary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9400D6D9EB520A9EB9E60 /* Pods_SearchDictionary.framework */; };
-		C55149811DD88876008C4BB1 /* Favourite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C551497F1DD88876008C4BB1 /* Favourite+CoreDataClass.swift */; };
-		C55149821DD88876008C4BB1 /* Favourite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55149801DD88876008C4BB1 /* Favourite+CoreDataProperties.swift */; };
 		C56D01161DD30EF000183AB2 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D01151DD30EF000183AB2 /* Utility.m */; };
 		C56D01191DD5EDD300183AB2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C56D01171DD5EDD300183AB2 /* Model.xcdatamodeld */; };
 		C56F93471DD8564900F827A2 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F93451DD8564900F827A2 /* SearchResultCell.m */; };
@@ -17,6 +15,10 @@
 		C56F934B1DD8649A00F827A2 /* FavouritesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F934A1DD8649A00F827A2 /* FavouritesVC.m */; };
 		C56F934F1DD870B400F827A2 /* FavouriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F934D1DD870B400F827A2 /* FavouriteCell.m */; };
 		C56F93501DD870B400F827A2 /* FavouriteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56F934E1DD870B400F827A2 /* FavouriteCell.xib */; };
+		C5CE288E1DD9BFEE00BECA40 /* CustomSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE288C1DD9BFEE00BECA40 /* CustomSearchCell.m */; };
+		C5CE288F1DD9BFEE00BECA40 /* CustomSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CE288D1DD9BFEE00BECA40 /* CustomSearchCell.xib */; };
+		C5CE28981DD9DD8800BECA40 /* FavouriteMO.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE28971DD9DD8800BECA40 /* FavouriteMO.m */; };
+		C5CE289B1DD9DDEE00BECA40 /* RecentsMO.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE289A1DD9DDEE00BECA40 /* RecentsMO.m */; };
 		C5EC3C1E1DD1DF06003F12AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C1D1DD1DF06003F12AB /* main.m */; };
 		C5EC3C211DD1DF06003F12AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C201DD1DF06003F12AB /* AppDelegate.m */; };
 		C5EC3C241DD1DF06003F12AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C231DD1DF06003F12AB /* ViewController.m */; };
@@ -48,8 +50,6 @@
 /* Begin PBXFileReference section */
 		53DCA782DF1C00822FF22AE7 /* Pods_SearchDictionaryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchDictionaryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		702FB2C441D00F8833906288 /* Pods-SearchDictionary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchDictionary.release.xcconfig"; path = "Pods/Target Support Files/Pods-SearchDictionary/Pods-SearchDictionary.release.xcconfig"; sourceTree = "<group>"; };
-		C551497F1DD88876008C4BB1 /* Favourite+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C55149801DD88876008C4BB1 /* Favourite+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C56D01131DD30E2700183AB2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C56D01141DD30EF000183AB2 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		C56D01151DD30EF000183AB2 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
@@ -62,6 +62,13 @@
 		C56F934C1DD870B400F827A2 /* FavouriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteCell.h; sourceTree = "<group>"; };
 		C56F934D1DD870B400F827A2 /* FavouriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteCell.m; sourceTree = "<group>"; };
 		C56F934E1DD870B400F827A2 /* FavouriteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouriteCell.xib; sourceTree = "<group>"; };
+		C5CE288B1DD9BFEE00BECA40 /* CustomSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchCell.h; sourceTree = "<group>"; };
+		C5CE288C1DD9BFEE00BECA40 /* CustomSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchCell.m; sourceTree = "<group>"; };
+		C5CE288D1DD9BFEE00BECA40 /* CustomSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSearchCell.xib; sourceTree = "<group>"; };
+		C5CE28961DD9DD8800BECA40 /* FavouriteMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteMO.h; sourceTree = "<group>"; };
+		C5CE28971DD9DD8800BECA40 /* FavouriteMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteMO.m; sourceTree = "<group>"; };
+		C5CE28991DD9DDEE00BECA40 /* RecentsMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsMO.h; sourceTree = "<group>"; };
+		C5CE289A1DD9DDEE00BECA40 /* RecentsMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsMO.m; sourceTree = "<group>"; };
 		C5EC3C191DD1DF06003F12AB /* SearchDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EC3C1D1DD1DF06003F12AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C5EC3C1F1DD1DF06003F12AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,8 +145,6 @@
 				C5EC3C1A1DD1DF06003F12AB /* Products */,
 				4C2766A9AC61F57CAF40926E /* Pods */,
 				B54A017C9FF3D7D4E56CC020 /* Frameworks */,
-				C551497F1DD88876008C4BB1 /* Favourite+CoreDataClass.swift */,
-				C55149801DD88876008C4BB1 /* Favourite+CoreDataProperties.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +164,10 @@
 				C56D01131DD30E2700183AB2 /* Constants.h */,
 				C56D01141DD30EF000183AB2 /* Utility.h */,
 				C56D01151DD30EF000183AB2 /* Utility.m */,
+				C5CE28961DD9DD8800BECA40 /* FavouriteMO.h */,
+				C5CE28971DD9DD8800BECA40 /* FavouriteMO.m */,
+				C5CE28991DD9DDEE00BECA40 /* RecentsMO.h */,
+				C5CE289A1DD9DDEE00BECA40 /* RecentsMO.m */,
 				C5EC3C1F1DD1DF06003F12AB /* AppDelegate.h */,
 				C5EC3C201DD1DF06003F12AB /* AppDelegate.m */,
 				C56F93441DD8564900F827A2 /* SearchResultCell.h */,
@@ -169,6 +178,9 @@
 				C56F934D1DD870B400F827A2 /* FavouriteCell.m */,
 				C5EC3C221DD1DF06003F12AB /* ViewController.h */,
 				C5EC3C231DD1DF06003F12AB /* ViewController.m */,
+				C5CE288B1DD9BFEE00BECA40 /* CustomSearchCell.h */,
+				C5CE288C1DD9BFEE00BECA40 /* CustomSearchCell.m */,
+				C5CE288D1DD9BFEE00BECA40 /* CustomSearchCell.xib */,
 				C56F934E1DD870B400F827A2 /* FavouriteCell.xib */,
 				C56F93461DD8564900F827A2 /* SearchResultCell.xib */,
 				C5EC3C251DD1DF06003F12AB /* Main.storyboard */,
@@ -325,6 +337,7 @@
 				C5EC3C291DD1DF06003F12AB /* Assets.xcassets in Resources */,
 				C5EC3C501DD1EE0F003F12AB /* words.txt in Resources */,
 				C56F93501DD870B400F827A2 /* FavouriteCell.xib in Resources */,
+				C5CE288F1DD9BFEE00BECA40 /* CustomSearchCell.xib in Resources */,
 				C5EC3C271DD1DF06003F12AB /* Main.storyboard in Resources */,
 				C56F93481DD8564900F827A2 /* SearchResultCell.xib in Resources */,
 			);
@@ -402,13 +415,14 @@
 				C5EC3C241DD1DF06003F12AB /* ViewController.m in Sources */,
 				C56F93471DD8564900F827A2 /* SearchResultCell.m in Sources */,
 				C5EC3C211DD1DF06003F12AB /* AppDelegate.m in Sources */,
+				C5CE28981DD9DD8800BECA40 /* FavouriteMO.m in Sources */,
+				C5CE289B1DD9DDEE00BECA40 /* RecentsMO.m in Sources */,
 				C56D01191DD5EDD300183AB2 /* Model.xcdatamodeld in Sources */,
+				C5CE288E1DD9BFEE00BECA40 /* CustomSearchCell.m in Sources */,
 				C56D01161DD30EF000183AB2 /* Utility.m in Sources */,
 				C5EC3C1E1DD1DF06003F12AB /* main.m in Sources */,
 				C56F934B1DD8649A00F827A2 /* FavouritesVC.m in Sources */,
-				C55149821DD88876008C4BB1 /* Favourite+CoreDataProperties.swift in Sources */,
 				C56F934F1DD870B400F827A2 /* FavouriteCell.m in Sources */,
-				C55149811DD88876008C4BB1 /* Favourite+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +606,6 @@
 		C5EC3C4A1DD1DF06003F12AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = AAKS6C6U36;
 				INFOPLIST_FILE = SearchDictionaryTests/Info.plist;
@@ -606,7 +619,6 @@
 		C5EC3C4B1DD1DF06003F12AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = AAKS6C6U36;
 				INFOPLIST_FILE = SearchDictionaryTests/Info.plist;
@@ -620,7 +632,6 @@
 		C5EC3C4D1DD1DF06003F12AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = AAKS6C6U36;
 				INFOPLIST_FILE = SearchDictionaryUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -633,7 +644,6 @@
 		C5EC3C4E1DD1DF06003F12AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = AAKS6C6U36;
 				INFOPLIST_FILE = SearchDictionaryUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

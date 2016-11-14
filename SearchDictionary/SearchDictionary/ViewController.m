@@ -1,14 +1,17 @@
 #import "ViewController.h"
 #import "SearchResultCell.h"
+#import "RecentsMO.h"
+#import "FavouriteMO.h"
+#import "CustomSearchCell.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
 @end
 
 @implementation ViewController
 
 BOOL startChange;
 NSInteger count,screenWidth,screenHeight;
-NSArray *resArr,*colors,*wordArray;
+NSArray *resArr,*colors,*wordArray,*recentSearches;
 NSMutableSet *tempArr;
 NSThread *reloadThread;
 
@@ -45,6 +48,7 @@ NSThread *reloadThread;
     screenWidth = [[UIScreen mainScreen]bounds].size.width;
     screenHeight = [[UIScreen mainScreen]bounds].size.height;
     colors = @[ peterRiver,belizeHole,amethyst,wisteria,carrot,pumpkin,alizarin,pomegranate,turquoise, greenSea,emerald,nephritis,concrete,asbestos,wetAsphalt,midnightBlue ];
+    recentSearches = [[NSArray alloc]init];
     
     self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.indicator setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
@@ -66,6 +70,26 @@ NSThread *reloadThread;
     [button setTintColor:[UIColor whiteColor]];
     [button.titleLabel setFont:[Utility getFont:17]];
     [self styleNavigation];
+    UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
+    [keyboardDoneButtonView sizeToFit];
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Search"
+                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                  action:@selector(doneClicked:)];
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor grayColor];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    NSDictionary *fontValues = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,[Utility getFont:17], NSFontAttributeName, nil];
+    [doneButton setTitleTextAttributes:fontValues forState:UIControlStateNormal];
+    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flex,doneButton, nil]];
+    self.searchBar.inputAccessoryView = keyboardDoneButtonView;
+
+}
+
+- (IBAction)doneClicked:(id)sender
+{
+    [self.view endEditing:YES];
+    [self searchBarSearchButtonClicked:self.searchBar];
 }
 
 -(void)configureCoreData {
@@ -120,13 +144,19 @@ NSThread *reloadThread;
 
 #pragma mark - Search bar functions
 
+-(void)startSearch :(NSString *)str{
+    NSLog(@"startSearch");
+    self.searchBar.text = str;
+    [self searchBarSearchButtonClicked:self.searchBar];
+    [self.suggestionView removeFromSuperview];
+}
+
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-    searchBar.text = emptyStr;
     [searchBar resignFirstResponder];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {    
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self addSearches:searchBar.text];
     if( reloadThread != nil ) {
         reloadThread = nil;
         [reloadThread cancel];
@@ -142,6 +172,31 @@ NSThread *reloadThread;
     
 }
 
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    // must set delegate & dataSource, otherwise the the table will be empty and not responsive
+    self.suggestionView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    self.suggestionView.frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) );
+    
+    self.suggestionTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.suggestionTableView.backgroundColor = [UIColor clearColor];
+    self.suggestionTableView.delegate = self;
+    self.suggestionTableView.dataSource = self;
+    [self.suggestionTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [self.suggestionTableView setSeparatorColor:[UIColor clearColor]];
+    [self.suggestionTableView registerClass:[CustomSearchCell class] forCellReuseIdentifier:searchResultCell];
+    [self.suggestionView addSubview:self.suggestionTableView];
+    [self.view addSubview:self.suggestionView];
+    [self fetchRecentSearches];
+    [self.suggestionTableView reloadData];
+    return YES;
+}
+
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    [self.suggestionView removeFromSuperview];
+    return YES;
+}
 
 #pragma mark - Activity Indicator functions
 
@@ -328,9 +383,9 @@ int combinationsCount = 0;
 
 #pragma mark - Fetched results functions
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
+- (NSFetchedResultsController *)favouritesResultsController {
+    if( _favouritesResultsController != nil) {
+        return _favouritesResultsController;
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -341,17 +396,70 @@ int combinationsCount = 0;
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    self.favouritesResultsController = aFetchedResultsController;
     NSError *error = nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
+    if (![self.favouritesResultsController performFetch:&error]) {
+        abort(); //
+    }
+    return _favouritesResultsController;
+}
+
+- (NSFetchedResultsController *)recentResultsController {
+    if(_recentResultsController != nil) {
+        return _recentResultsController;
+    }
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:recents inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchBatchSize:20];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:updateTime ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    aFetchedResultsController.delegate = self;
+    self.recentResultsController = aFetchedResultsController;
+    NSError *error = nil;
+    if (![self.recentResultsController performFetch:&error]) {
         abort();
     }
-    return _fetchedResultsController;
+    return _recentResultsController;
+}
+
+
+- (void)addSearches:(NSString *)sStr {
+    NSManagedObjectContext *context = [self.recentResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.recentResultsController fetchRequest] entity];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    NSDate *date = [NSDate date];
+    [newManagedObject setValue:date forKey:updateTime];
+    [newManagedObject setValue:sStr forKey:searchStr];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        abort();
+    }
+}
+
+-(void) fetchRecentSearches {
+    NSManagedObjectContext *moc = [self.recentResultsController managedObjectContext];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:recents];
+    [request setReturnsObjectsAsFaults:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:updateTime ascending:NO];
+    [request setSortDescriptors:@[sortDescriptor]];
+    NSError *error = nil;
+    NSArray *results = [moc executeFetchRequest:request error:&error];
+    
+    if (!results) {
+        abort();
+    }
+    NSMutableSet *set = [[NSMutableSet alloc]init];
+    for(RecentsMO *recent in results) {
+        [set addObject:recent.searchStr];
+    }
+    recentSearches = [set allObjects];
 }
 
 - (void)addFavourite:(NSString *)sStr searchValue:(NSString *)sVal {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObjectContext *context = [self.favouritesResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.favouritesResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     NSDate *date = [NSDate date];
     [newManagedObject setValue:date forKey:updateTime];
@@ -364,7 +472,7 @@ int combinationsCount = 0;
 }
 
 - (void)removeFavourite:(NSString *)searchStr searchValue:(NSString *)searchValue {
-    NSManagedObjectContext *moc = [self.fetchedResultsController managedObjectContext];
+    NSManagedObjectContext *moc = [self.favouritesResultsController managedObjectContext];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:favourite];
     NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:searchValueEquals, searchValue];
     request.predicate = searchStrPredicate;
@@ -381,7 +489,7 @@ int combinationsCount = 0;
 }
 
 - (BOOL)retriveFavourite:(NSString *)searchValue {
-    NSManagedObjectContext *moc = [self.fetchedResultsController managedObjectContext];
+    NSManagedObjectContext *moc = [self.favouritesResultsController managedObjectContext];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:favourite];
     NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:searchValueEquals, searchValue];
     request.predicate = searchStrPredicate;
@@ -403,7 +511,12 @@ int combinationsCount = 0;
 #pragma mark - UITableView Functions
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if(tableView == self.tableView) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    else {
+        [self startSearch:recentSearches[indexPath.row]];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -411,34 +524,49 @@ int combinationsCount = 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if([resArr count] == 0) {
-        self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-        self.label.center = self.view.center;
-        [self.label setText:noResultsStr];
-        [self.label setTextAlignment:NSTextAlignmentCenter];
-        [self.label setFont:[Utility getFont:21]];
+    if(tableView == self.tableView) {
+        if([resArr count] == 0) {
+            self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+            self.label.center = self.view.center;
+            [self.label setText:noResultsStr];
+            [self.label setTextAlignment:NSTextAlignmentCenter];
+            [self.label setFont:[Utility getFont:21]];
+        }
+        else {
+        }
+        return [resArr count];
     }
     else {
+        return [recentSearches count];
     }
-    return [resArr count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SearchResultCell *cell;
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:searchResultCell owner:self options:nil];
-    cell = [nib objectAtIndex:0];
-    NSUInteger colorIndex = (NSUInteger)indexPath.row;
-    if( colorIndex > [colors count] - 1 ) {
-        colorIndex = colorIndex % [colors count];
+    if(tableView == self.tableView) {
+        SearchResultCell *cell;
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:searchResultCell owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        NSUInteger colorIndex = (NSUInteger)indexPath.row;
+        if( colorIndex > [colors count] - 1 ) {
+            colorIndex = colorIndex % [colors count];
+        }
+        [cell setViewColour:[Utility colorFromHexString:colors[colorIndex]]];
+        cell.wordLabel.text = resArr[indexPath.row];
+        cell.searchStr = self.searchBar.text;
+        cell.searchValue = cell.wordLabel.text;
+        cell.viewController = self;
+        [cell updateFaviState:[self retriveFavourite:cell.wordLabel.text]];
+        return cell;
     }
-    [cell setViewColour:[Utility colorFromHexString:colors[colorIndex]]];
-    cell.wordLabel.text = resArr[indexPath.row];
-    cell.searchStr = self.searchBar.text;
-    cell.searchValue = cell.wordLabel.text;
-    cell.viewController = self;
-    [cell updateFaviState:[self retriveFavourite:cell.wordLabel.text]];
-    return cell;
-
+    else {
+        CustomSearchCell *cell;
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:customSearchCell owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        cell.recentTextLbl.text = recentSearches[indexPath.row];
+        cell.vewCont = self;
+        return cell;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -446,7 +574,12 @@ int combinationsCount = 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    if(self.tableView == tableView) {
+        return 70;
+    }
+    else {
+        return 40;
+    }
 }
 
 #pragma mark - NSComparision function

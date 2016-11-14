@@ -25,12 +25,33 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" image="naviBg" translatesAutoresizingMaskIntoConstraints="NO" id="q3X-Tl-1sd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="icon" highlightedImage="icon" translatesAutoresizingMaskIntoConstraints="NO" id="EdL-tU-Fic">
+                                <rect key="frame" x="140" y="286" width="96" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="1wR-Ld-B2J"/>
+                                    <constraint firstAttribute="height" constant="96" id="FZe-sO-YTV"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PATTERNS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ6-r0-zdT">
+                                <rect key="frame" x="116" y="396" width="143" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="HYT-EL-CuN"/>
+                                    <constraint firstAttribute="width" constant="143" id="uYs-hO-wQz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="21"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="EdL-tU-Fic" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="9qB-0K-ttk"/>
                             <constraint firstItem="q3X-Tl-1sd" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="E5l-SP-ALc"/>
+                            <constraint firstItem="HQ6-r0-zdT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="K4Z-G1-8N3"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="q3X-Tl-1sd" secondAttribute="bottom" id="QAy-Av-3mZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="q3X-Tl-1sd" secondAttribute="trailing" constant="-16" id="WcK-MG-Kyp"/>
+                            <constraint firstItem="EdL-tU-Fic" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cwB-K2-8eO"/>
+                            <constraint firstItem="HQ6-r0-zdT" firstAttribute="top" secondItem="EdL-tU-Fic" secondAttribute="bottom" constant="14" id="faZ-O8-uDN"/>
                             <constraint firstItem="q3X-Tl-1sd" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-16" id="vQU-qx-g5u"/>
                         </constraints>
                     </view>
@@ -41,6 +62,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon" width="96" height="96"/>
         <image name="naviBg" width="960" height="540"/>
     </resources>
 </document>
