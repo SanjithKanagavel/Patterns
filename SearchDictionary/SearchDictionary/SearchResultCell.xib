@@ -22,8 +22,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZ9-2b-Etk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r60-B8-iyx">
-                                <rect key="frame" x="14" y="13" width="253" height="21.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lagel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r60-B8-iyx">
+                                <rect key="frame" x="14" y="11" width="253" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="LBD-QI-YFf"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,8 +39,8 @@
                                 </constraints>
                                 <state key="normal" image="starUnfilled"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starUnfilled" translatesAutoresizingMaskIntoConstraints="NO" id="XNV-GX-0SV">
-                                <rect key="frame" x="269" y="12" width="24" height="24.5"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starUnfilled" translatesAutoresizingMaskIntoConstraints="NO" id="XNV-GX-0SV">
+                                <rect key="frame" x="269" y="12" width="24" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="TZt-vd-PdV"/>
                                 </constraints>
@@ -45,12 +48,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="r60-B8-iyx" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="13" id="36o-a3-OId"/>
                             <constraint firstItem="XNV-GX-0SV" firstAttribute="leading" secondItem="r60-B8-iyx" secondAttribute="trailing" constant="2" id="5Bb-p2-OMp"/>
                             <constraint firstItem="pv3-K0-U1h" firstAttribute="leading" secondItem="r60-B8-iyx" secondAttribute="trailing" constant="-9" id="EoS-dC-ozP"/>
                             <constraint firstItem="pv3-K0-U1h" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="8" id="OYw-MU-pUo"/>
                             <constraint firstAttribute="bottom" secondItem="pv3-K0-U1h" secondAttribute="bottom" constant="4" id="Rtt-5M-DQ5"/>
-                            <constraint firstAttribute="bottom" secondItem="r60-B8-iyx" secondAttribute="bottom" constant="8.5" id="Wtz-pd-BTO"/>
+                            <constraint firstItem="r60-B8-iyx" firstAttribute="centerY" secondItem="JZ9-2b-Etk" secondAttribute="centerY" id="SlL-Vz-Mfw"/>
                             <constraint firstItem="r60-B8-iyx" firstAttribute="leading" secondItem="JZ9-2b-Etk" secondAttribute="leading" constant="14" id="dwr-G2-mRL"/>
                             <constraint firstAttribute="trailing" secondItem="pv3-K0-U1h" secondAttribute="trailing" constant="14" id="rpP-9H-846"/>
                         </constraints>
@@ -80,6 +82,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="starUnfilled" width="96" height="96"/>
+        <image name="starUnfilled" width="100" height="100"/>
     </resources>
 </document>

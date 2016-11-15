@@ -10,6 +10,7 @@
     @property (weak, nonatomic) IBOutlet UITableView *tableView;
     @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
     @property (strong, nonatomic) UIActivityIndicatorView *indicator;
+    @property (strong, nonatomic) UIVisualEffectView *indicatorVisualView;
     @property (strong, nonatomic) UILabel *label;
     @property (strong, nonatomic) NSFetchedResultsController *favouritesResultsController;
     @property (strong, nonatomic) NSFetchedResultsController *recentResultsController;

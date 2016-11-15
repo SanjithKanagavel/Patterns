@@ -33,7 +33,7 @@ NSArray *bgColors;
 
 -(void) configureBaseScreen {
     favArr = [[NSMutableArray alloc] init];
-    bgColors = @[ peterRiver,belizeHole,amethyst,wisteria,carrot,pumpkin,alizarin,pomegranate,turquoise, greenSea,emerald,nephritis,concrete,asbestos,wetAsphalt,midnightBlue ];
+    bgColors = @[ asbestos ];
     [self.tableView registerClass:[FavouriteCell class] forCellReuseIdentifier:favouriteCell];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleWhite];
@@ -42,7 +42,7 @@ NSArray *bgColors;
     UIView *view = [[UIView alloc]init];
     view.frame = self.tableView.frame;
     [view setAlpha:0.85];
-    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
+    [view setBackgroundColor:[Utility colorFromHexString:bgColors[0]]];
     [self.tableView setBackgroundView:view];
     [self styleNavigation];
 }
@@ -125,14 +125,9 @@ NSArray *bgColors;
         [favArr addObject:fav];
     }
     if (!results) {
-        abort();
-    }
-    if([results count] == 0) {
         return NO;
     }
-    else {
-        return YES;
-    }
+    return YES;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -142,7 +137,7 @@ NSArray *bgColors;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    /*UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, tableView.frame.size.width/2-5, 18)];
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(label1.frame),CGRectGetMinY(label1.frame), tableView.frame.size.width/2, 18)];
     [label1 setFont:[UIFont boldSystemFontOfSize:12]];
@@ -156,15 +151,16 @@ NSArray *bgColors;
     [view addSubview:label1];
     [view addSubview:label2];
     [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
-    return view;
+    return view;*/
+    return nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(tableView == self.tableView) {
+    /*if(tableView == self.tableView) {
         if([favArr count] != 0) {
             return @"Search Results";
         }
-    }
+    }*/
     return @"";
 }
 
@@ -189,6 +185,7 @@ NSArray *bgColors;
     FavouriteCell *cell;
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:favouriteCell owner:self options:nil];
     cell = [nib objectAtIndex:0];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSUInteger colorIndex = (NSUInteger)indexPath.row;
     if( colorIndex > [bgColors count] - 1 ) {
         colorIndex = colorIndex % [bgColors count];
@@ -205,7 +202,7 @@ NSArray *bgColors;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    return 40;
 }
 
 

@@ -11,8 +11,9 @@
 
 BOOL startChange;
 NSInteger count,screenWidth,screenHeight;
-NSArray *resArr,*colors,*wordArray,*recentSearches;
+NSArray *resArr,*colors,*recentSearches;
 NSMutableSet *tempArr;
+NSSet *wordSet;
 NSThread *reloadThread;
 CGFloat KeyboardHeight;
 
@@ -90,34 +91,38 @@ CGFloat KeyboardHeight;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    NSLog(@"Memory low");
 }
 
 #pragma mark - Screen related functions
 
 -(void) configureBaseScreen {
-    
-    wordArray = [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:wordsStr ofType:txtStr] encoding:NSUTF8StringEncoding error:NULL] componentsSeparatedByString:newLineStr];
+    wordSet = [NSSet setWithArray: [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:wordsStr ofType:txtStr] encoding:NSUTF8StringEncoding error:NULL] componentsSeparatedByString:newLineStr]];
     count = 0;
     startChange = false;
     resArr = [[NSArray alloc] init];
     tempArr = [[NSMutableSet alloc]init];
     screenWidth = [[UIScreen mainScreen]bounds].size.width;
     screenHeight = [[UIScreen mainScreen]bounds].size.height;
-    colors = @[ peterRiver,belizeHole,amethyst,wisteria,carrot,pumpkin,alizarin,pomegranate,turquoise, greenSea,emerald,nephritis,concrete,asbestos,wetAsphalt,midnightBlue ];
+    colors = @[ asbestos ];
     recentSearches = [[NSArray alloc]init];
-    
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    self.indicatorVisualView  = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    self.indicatorVisualView .frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) - CGRectGetMinY(self.navigationController.navigationBar.frame) );
     self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.indicator setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
-    [self.indicator setCenter:self.view.center];
     [self.indicator setColor:[UIColor whiteColor]];
-    [self.view addSubview:self.indicator];
-    [self.indicator bringSubviewToFront:self.view];
+    [self.indicatorVisualView addSubview:self.indicator];
+    [self.view addSubview:self.indicatorVisualView];
+    [self.indicator setCenter:CGPointMake(self.indicatorVisualView.center.x,self.indicatorVisualView.frame.size.height/2)];
+    [self hideActivityIndicator];
     
     [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:searchResultCell];
     UIView *view = [[UIView alloc]init];
     view.frame = self.tableView.frame;
     [view setAlpha:0.85];
-    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
+    [view setBackgroundColor:[Utility colorFromHexString:colors[0]]];
     [self.tableView setBackgroundView:view];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleBlack];
@@ -130,11 +135,12 @@ CGFloat KeyboardHeight;
     UIButton *button = [self.searchBar valueForKey: cancelBtnStr];
     [button setTintColor:[UIColor whiteColor]];
     [button.titleLabel setFont:[Utility getFont:17]];
+    [button setTitle:search forState:UIControlStateNormal];
     [self styleNavigation];
     UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Search"
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:cancelStr
                                                                    style:UIBarButtonItemStyleBordered target:self
                                                                   action:@selector(doneClicked:)];
     NSShadow *shadow = [[NSShadow alloc] init];
@@ -147,10 +153,8 @@ CGFloat KeyboardHeight;
 
 }
 
-- (IBAction)doneClicked:(id)sender
-{
-    [self.view endEditing:YES];
-    [self searchBarSearchButtonClicked:self.searchBar];
+- (IBAction)doneClicked:(id)sender {
+    [self.searchBar resignFirstResponder];
 }
 
 -(void)configureCoreData {
@@ -192,9 +196,12 @@ CGFloat KeyboardHeight;
 - (void) reloadData:(NSString *) searchStr {
     for(int i=0; i<[searchStr length]; i++) {
         [self getCombinations:searchStr numberIndex:0 groups:nil lastGroupIndex:0 remainingPointers:i];
+        NSLog(@"3");
     }
     tempArr = [self processSet];
+    NSLog(@"4");
     resArr = [tempArr allObjects];
+    NSLog(@"5");
     [self sortArray];
 }
 
@@ -213,11 +220,14 @@ CGFloat KeyboardHeight;
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
+    [self.view endEditing:YES];
+    [self searchBarSearchButtonClicked:self.searchBar];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    if([searchBar.text isEqual:emptyStr]){
+        return;
+    }
     [self addSearches:searchBar.text];
     if( reloadThread != nil ) {
         reloadThread = nil;
@@ -245,11 +255,13 @@ CGFloat KeyboardHeight;
 #pragma mark - Activity Indicator functions
 
 -(void) showActivityIndicator{
+    [self.indicatorVisualView setHidden:NO];
     [self.indicator startAnimating];
 }
 
 -(void) hideActivityIndicator {
     [self.indicator stopAnimating];
+    [self.indicatorVisualView setHidden:YES];
 }
 
 #pragma mark - Combination functions
@@ -307,6 +319,7 @@ int combinationsCount = 0;
         }
         groupsCount++;
         [self applyWordCombinations:groups index:0 formation:nil];
+        NSLog(@"2");
         return;
     }
     else if( ( numberIndex == [numberSequence length] - 1 ) || ( remainingPointers == [numberSequence length] )){
@@ -330,6 +343,9 @@ int combinationsCount = 0;
         {
             [self getCombinations:numberSequence numberIndex:numberIndex+1 groups:copy2 lastGroupIndex:lastGroupIndex remainingPointers:remainingPointers];
         }
+        
+        copy1 = nil;
+        copy2 = nil;
     }
 }
 
@@ -338,7 +354,7 @@ int combinationsCount = 0;
         formation = [[NSString alloc]init];
     }
     if(index == [groups count]) { //insert
-        if(![tempArr containsObject:formation] && ![self onlyNumbers:formation]) { //Check for duplicates
+        if(![tempArr containsObject:formation] && ![[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:formation]) { //Check for duplicates
                 [tempArr addObject:formation];
         }
         return;
@@ -346,14 +362,19 @@ int combinationsCount = 0;
     NSString *copyStr = [[NSString alloc]initWithString:formation];
     NSMutableArray *combinationArr;
     NSMutableArray *possibleCombos = [[NSMutableArray alloc]init];
-    if([groups[index] length] > (([self.searchBar.text length]/2)-1)) {
+    //long limit = ([self.searchBar.text length]/2)-1;
+    //if([groups[index] length] > ( limit < 0 ? 1 : limit )) {
+    if([groups[index] length] > 2) {
+        NSLog(@"1");
         combinationArr = [self getWordCombinations:emptyStr word:groups[index]];
         NSMutableSet *set1 = [NSMutableSet setWithArray: combinationArr];
-        NSSet *set2 = [NSSet setWithArray: wordArray];
-        [set1 intersectSet: set2];
+        [set1 intersectSet: wordSet];
         NSArray *arr = [set1 allObjects];
         [possibleCombos addObjectsFromArray:arr];
+        arr = nil;
+        set1 = nil;
     }
+    //Retrieve combos possible and find prepare word combos to find in dict.
     if([possibleCombos count] == 0) {
         copyStr = [copyStr stringByAppendingString:groups[index]];
         if(index+1 < [groups count]) {
@@ -369,16 +390,20 @@ int combinationsCount = 0;
             [self applyWordCombinations:groups index:index+1 formation:copyStr];
         }
     }
-    
+    combinationArr = nil;
+    possibleCombos = nil;
 }
 
 -(void) sortArray {
-    resArr = [resArr sortedArrayUsingComparator:^NSComparisonResult(NSString *first, NSString *second){
+    NSLog(@"6");
+    /*resArr = [resArr sortedArrayUsingComparator:^NSComparisonResult(NSString *first, NSString *second){
         return [self sortToText:first withLengthOf:second];
-    }];
+    }];*/
+    NSLog(@"7");
     dispatch_async(dispatch_get_main_queue(),^(void){
         [self.tableView reloadData];
         [self hideActivityIndicator];
+        NSLog(@"8");
     });
 }
 
@@ -395,20 +420,13 @@ int combinationsCount = 0;
     NSArray *subArrays = [str componentsSeparatedByString:hypenStr];
     for(int i=0;i<[subArrays count]-1;i++) {
         pString = [pString stringByAppendingString:subArrays[i]];
-        if(!([self onlyNumbers:subArrays[i]] && [self onlyNumbers:subArrays[i+1]])){
+        if(!([[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:subArrays[i]] && [[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:subArrays[i+1]])){
             pString = [pString stringByAppendingString:hypenStr];
         }
     }
     pString = [pString stringByAppendingString:subArrays[[subArrays count]-1]];
     return pString;
 }
-
--(BOOL) onlyNumbers : (NSString *)str {
-    NSString *numberRegex = numRegex;
-    NSPredicate *regexPredicate = [NSPredicate predicateWithFormat:matchPredicate, numberRegex];
-    return [regexPredicate evaluateWithObject:str];
-}
-
 -(NSInteger) countNumbers : (NSString *)str {
     NSInteger count = 0;
     for(int i = 0;i<[str length];i++){
@@ -480,7 +498,6 @@ int combinationsCount = 0;
 }
 
 -(void) fetchRecentSearches {
-    NSLog(@"Recent Searches");
     NSManagedObjectContext *moc = [self.recentResultsController managedObjectContext];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:recents];
     [request setReturnsObjectsAsFaults:NO];
@@ -495,10 +512,8 @@ int combinationsCount = 0;
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc]init];
     for(RecentsMO *recent in results) {
         [set addObject:recent.searchStr];
-        NSLog(@"%@",recent.searchStr);
     }
     recentSearches = [set array];
-    NSLog(@"Recent Searches : %@",recentSearches);
 }
 
 - (void)addFavourite:(NSString *)sStr searchValue:(NSString *)sVal {
@@ -529,6 +544,9 @@ int combinationsCount = 0;
     }
     for (NSManagedObject *product in results) {
         [moc deleteObject:product];
+    }
+    if([moc hasChanges] && [moc save:&error]) {
+        NSLog(@"deleted successfully");
     }
 }
 
@@ -590,6 +608,7 @@ int combinationsCount = 0;
         SearchResultCell *cell;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:searchResultCell owner:self options:nil];
         cell = [nib objectAtIndex:0];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         NSUInteger colorIndex = (NSUInteger)indexPath.row;
         if( colorIndex > [colors count] - 1 ) {
             colorIndex = colorIndex % [colors count];
@@ -626,12 +645,13 @@ int combinationsCount = 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(self.tableView == tableView) {
+    /*if(self.tableView == tableView) {
         return 70;
     }
     else {
         return 40;
-    }
+    }*/
+    return 50;
 }
 
 #pragma mark - NSComparision function
@@ -653,7 +673,7 @@ int combinationsCount = 0;
     else if (firstCount < secondCount)
         return NSOrderedAscending;
     else
-        return NSOrderedSame;
+        return NSOrderedAscending;
 }
 
 @end
