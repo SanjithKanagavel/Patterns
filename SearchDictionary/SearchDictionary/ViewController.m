@@ -310,22 +310,23 @@ int combinationsCount = 0;
         return;
     }
     else if( ( numberIndex == [numberSequence length] - 1 ) || ( remainingPointers == [numberSequence length] )){
+        // not the last index pointer and it dont have the pointers left
         return;
     }
     else  {
         NSMutableArray *copy1 = [[NSMutableArray alloc]init];
         [copy1 addObjectsFromArray:groups];
-        //place the pointer
+        //Use pointer in this number
         {
             NSString *subStr;
-            subStr = [numberSequence substringWithRange:NSMakeRange((lastGroupIndex==0)?0:(lastGroupIndex), (numberIndex-(lastGroupIndex-1)))];
+            subStr = [numberSequence substringWithRange:NSMakeRange(lastGroupIndex, (numberIndex-(lastGroupIndex-1)))];
             [copy1 addObject:subStr];
             [self getCombinations:numberSequence numberIndex:numberIndex+1 groups:copy1 lastGroupIndex:numberIndex+1 remainingPointers:remainingPointers-1];
         }
         
         NSMutableArray *copy2 = [[NSMutableArray alloc]init];
         [copy2 addObjectsFromArray:groups];
-        //dont place the pointer
+        //Dont use the pointer and pass it on to the next combination
         {
             [self getCombinations:numberSequence numberIndex:numberIndex+1 groups:copy2 lastGroupIndex:lastGroupIndex remainingPointers:remainingPointers];
         }
@@ -337,14 +338,10 @@ int combinationsCount = 0;
         formation = [[NSString alloc]init];
     }
     if(index == [groups count]) { //insert
-        if(![tempArr containsObject:formation]) {
-            NSString *numberRegex = numRegex;
-            NSPredicate *numberTest = [NSPredicate predicateWithFormat:matchPredicate, numberRegex];
-            if(![numberTest evaluateWithObject:formation]) {
+        if(![tempArr containsObject:formation] && ![self onlyNumbers:formation]) { //Check for duplicates
                 [tempArr addObject:formation];
-            }
         }
-        return ;
+        return;
     }
     NSString *copyStr = [[NSString alloc]initWithString:formation];
     NSMutableArray *combinationArr;
