@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
+            timestampString = "500897538.264084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
-            landmarkName = "-favouritesResultsController"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-keyboardDidShow:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,59 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
+            timestampString = "500897538.264084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
-            landmarkName = "-recentResultsController"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "450"
-            endingLineNumber = "450"
-            landmarkName = "-recentResultsController"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
-            landmarkName = "-recentResultsController"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
             landmarkName = "-fetchRecentSearches"
             landmarkType = "7">
          </BreakpointContent>
@@ -89,75 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SearchDictionary/ViewController.h"
-            timestampString = "500817544.57067"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3"
-            endingLineNumber = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController tableView]"
-                  moduleName = "SearchDictionary"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sanjith/Documents/Projects/Dictionary/SearchDictionary/SearchDictionary/ViewController.h"
-                  timestampString = "500821004.976984"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "10"
-                  endingLineNumber = "10"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController setTableView:]"
-                  moduleName = "SearchDictionary"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sanjith/Documents/Projects/Dictionary/SearchDictionary/SearchDictionary/ViewController.h"
-                  timestampString = "500821004.980137"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "10"
-                  endingLineNumber = "10"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500826141.614826"
+            timestampString = "500897538.264084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "-startSearch:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SearchDictionary/ViewController.m"
-            timestampString = "500825922.584362"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "-keyboardDidShow:"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
+            landmarkName = "-fetchRecentSearches"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

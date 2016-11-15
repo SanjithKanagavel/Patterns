@@ -109,16 +109,21 @@ CGFloat KeyboardHeight;
     self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.indicator setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
     [self.indicator setCenter:self.view.center];
-    [self.indicator setColor:[UIColor redColor]];
+    [self.indicator setColor:[UIColor whiteColor]];
     [self.view addSubview:self.indicator];
     [self.indicator bringSubviewToFront:self.view];
     
     [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:searchResultCell];
+    UIView *view = [[UIView alloc]init];
+    view.frame = self.tableView.frame;
+    [view setAlpha:0.85];
+    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
+    [self.tableView setBackgroundView:view];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleBlack];
-    [self.tableView setSeparatorColor:[UIColor clearColor]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.searchBar setTintColor:[UIColor whiteColor]];
-    
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     UITextField *textField = [self.searchBar valueForKey: _searchFieldStr];
     [textField setTextColor:[UIColor blackColor]];
     [textField setFont:[Utility getFont:17]];
@@ -176,6 +181,7 @@ CGFloat KeyboardHeight;
     [self.navigationController.navigationBar.topItem setTitle:search];
     UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnRight setFrame:CGRectMake(0, 0, 33, 33)];
+    [btnRight setTitle:helpStr forState:UIControlStateNormal];
     [btnRight setImage:[UIImage imageNamed:helpStr ] forState:UIControlStateNormal];
     [btnRight addTarget:self action:@selector(showHelp) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barBtnRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
@@ -201,7 +207,6 @@ CGFloat KeyboardHeight;
 #pragma mark - Search bar functions
 
 -(void)startSearch :(NSString *)str{
-    NSLog(@"startSearch");
     self.searchBar.text = str;
     [self searchBarSearchButtonClicked:self.searchBar];
     [self.suggestionView removeFromSuperview];
@@ -212,6 +217,7 @@ CGFloat KeyboardHeight;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self addSearches:searchBar.text];
     if( reloadThread != nil ) {
         reloadThread = nil;
@@ -477,6 +483,7 @@ int combinationsCount = 0;
 }
 
 -(void) fetchRecentSearches {
+    NSLog(@"Recent Searches");
     NSManagedObjectContext *moc = [self.recentResultsController managedObjectContext];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:recents];
     [request setReturnsObjectsAsFaults:NO];
@@ -488,11 +495,13 @@ int combinationsCount = 0;
     if (!results) {
         abort();
     }
-    NSMutableSet *set = [[NSMutableSet alloc]init];
+    NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc]init];
     for(RecentsMO *recent in results) {
         [set addObject:recent.searchStr];
+        NSLog(@"%@",recent.searchStr);
     }
-    recentSearches = [set allObjects];
+    recentSearches = [set array];
+    NSLog(@"Recent Searches : %@",recentSearches);
 }
 
 - (void)addFavourite:(NSString *)sStr searchValue:(NSString *)sVal {
@@ -608,7 +617,15 @@ int combinationsCount = 0;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    return YES;
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    /*SearchResultCell *cell =  [self.tableView cellForRowAtIndexPath:indexPath];
+    UITableViewRowAction *starUnstar = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Star" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){}];
+    starUnstar.backgroundColor = cell.bgView.backgroundColor;*/
+    //return @[starUnstar];
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -4,7 +4,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self styleCell];
+    //[self styleCell];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

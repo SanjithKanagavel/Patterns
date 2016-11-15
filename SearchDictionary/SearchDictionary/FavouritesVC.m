@@ -36,8 +36,14 @@ NSArray *bgColors;
     bgColors = @[ peterRiver,belizeHole,amethyst,wisteria,carrot,pumpkin,alizarin,pomegranate,turquoise, greenSea,emerald,nephritis,concrete,asbestos,wetAsphalt,midnightBlue ];
     [self.tableView registerClass:[FavouriteCell class] forCellReuseIdentifier:favouriteCell];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleBlack];
+    [self.tableView setIndicatorStyle:UIScrollViewIndicatorStyleWhite];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
+    UIView *view = [[UIView alloc]init];
+    view.frame = self.tableView.frame;
+    [view setAlpha:0.85];
+    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
+    [self.tableView setBackgroundView:view];
     [self styleNavigation];
 }
 
@@ -133,6 +139,35 @@ NSArray *bgColors;
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, tableView.frame.size.width/2-5, 18)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(label1.frame),CGRectGetMinY(label1.frame), tableView.frame.size.width/2, 18)];
+    [label1 setFont:[UIFont boldSystemFontOfSize:12]];
+    [label1 setFont:[Utility getFont:17]];
+    [label1 setTextColor:[UIColor whiteColor]];
+    [label1 setText:searchStringF];
+    [label2 setFont:[UIFont boldSystemFontOfSize:12]];
+    [label2 setFont:[Utility getFont:17]];
+    [label2 setTextColor:[UIColor whiteColor]];
+    [label2 setText:searchValueF];
+    [view addSubview:label1];
+    [view addSubview:label2];
+    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:naviBgstr]]];
+    return view;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(tableView == self.tableView) {
+        if([favArr count] != 0) {
+            return @"Search Results";
+        }
+    }
+    return @"";
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -161,10 +196,6 @@ NSArray *bgColors;
     [cell setViewColour:[Utility colorFromHexString:bgColors[colorIndex]]];
     cell.searchVal.text = ((FavouriteMO *)favArr[indexPath.row]).searchValue;
     cell.searchStr.text = ((FavouriteMO *)favArr[indexPath.row]).searchStr;
-    NSDateFormatter *dateformate=[[NSDateFormatter alloc]init];
-    [dateformate setDateFormat:dateFormat];
-    NSString *date = [dateformate stringFromDate:((FavouriteMO *)favArr[indexPath.row]).updateTime];
-    cell.updateTime.text = date;
     return cell;
     
 }

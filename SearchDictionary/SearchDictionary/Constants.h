@@ -15,6 +15,8 @@ static NSString *wordsStr = @"words";
 static NSString *txtStr = @"txt";
 static NSString *newLineStr = @"\n";
 static NSString *search = @"Search";
+static NSString *searchStringF =@"Search String";
+static NSString *searchValueF =@"Search Value";
 
 //Model Strings
 static NSString *favourite = @"Favourite";

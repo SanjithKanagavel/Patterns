@@ -10,7 +10,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"6a008b3d-6596-4227-9a8d-41b9abe92621"  andAppKey:@"e2ce4ba1-fb0c-431b-99cb-f6602ac4347e"];
+    HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"<APP-ID>"  andAppKey:@"<APP-KEY>"];
     config.voiceMessagingEnabled = YES;
     config.pictureMessagingEnabled = YES;
     config.cameraCaptureEnabled = YES;
@@ -18,21 +18,6 @@
     config.showNotificationBanner = YES;
     
     [[Hotline sharedInstance] initWithConfig:config];
-    
-    
-    /*if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-    }
-    else{
-        
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        
-    }*/
-    
     [self.window makeKeyAndVisible];
     if ([[Hotline sharedInstance]isHotlineNotification:launchOptions]) {
         [[Hotline sharedInstance]handleRemoteNotification:launchOptions

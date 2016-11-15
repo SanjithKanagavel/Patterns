@@ -4,7 +4,7 @@
 @interface SearchResultCell : UITableViewCell
     @property (weak, nonatomic) IBOutlet UIView *bgView;
     @property (weak, nonatomic) IBOutlet UILabel *wordLabel;
-    @property (weak, nonatomic) IBOutlet UIButton *faviImg;
+    @property (weak, nonatomic) IBOutlet UIImageView *faviImg;
     @property (strong,nonatomic) NSString *searchStr;
     @property (strong,nonatomic) ViewController *viewController;
     @property (weak,nonatomic) NSString *searchValue;

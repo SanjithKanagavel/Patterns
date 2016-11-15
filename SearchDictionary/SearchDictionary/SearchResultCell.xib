@@ -20,46 +20,61 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZ9-2b-Etk">
-                        <rect key="frame" x="8" y="8" width="304" height="27"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r60-B8-iyx">
-                                <rect key="frame" x="4" y="3" width="264" height="21"/>
+                                <rect key="frame" x="14" y="13" width="253" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pv3-K0-U1h">
-                                <rect key="frame" x="257" y="5" width="38" height="18"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pv3-K0-U1h">
+                                <rect key="frame" x="259" y="8" width="31" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="YM2-7h-kbY"/>
-                                    <constraint firstAttribute="width" constant="38" id="gOu-wG-nJ0"/>
+                                    <constraint firstAttribute="height" constant="15" id="YM2-7h-kbY"/>
+                                    <constraint firstAttribute="width" constant="31" id="gOu-wG-nJ0"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="starUnfilled"/>
+                                <state key="normal" image="starUnfilled"/>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starUnfilled" translatesAutoresizingMaskIntoConstraints="NO" id="XNV-GX-0SV">
+                                <rect key="frame" x="269" y="12" width="24" height="24.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="TZt-vd-PdV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="r60-B8-iyx" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="3" id="36o-a3-OId"/>
-                            <constraint firstItem="pv3-K0-U1h" firstAttribute="leading" secondItem="r60-B8-iyx" secondAttribute="trailing" constant="-11" id="EoS-dC-ozP"/>
-                            <constraint firstItem="pv3-K0-U1h" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="5" id="OYw-MU-pUo"/>
+                            <constraint firstItem="r60-B8-iyx" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="13" id="36o-a3-OId"/>
+                            <constraint firstItem="XNV-GX-0SV" firstAttribute="leading" secondItem="r60-B8-iyx" secondAttribute="trailing" constant="2" id="5Bb-p2-OMp"/>
+                            <constraint firstItem="pv3-K0-U1h" firstAttribute="leading" secondItem="r60-B8-iyx" secondAttribute="trailing" constant="-9" id="EoS-dC-ozP"/>
+                            <constraint firstItem="pv3-K0-U1h" firstAttribute="top" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="8" id="OYw-MU-pUo"/>
                             <constraint firstAttribute="bottom" secondItem="pv3-K0-U1h" secondAttribute="bottom" constant="4" id="Rtt-5M-DQ5"/>
-                            <constraint firstAttribute="bottom" secondItem="r60-B8-iyx" secondAttribute="bottom" constant="3" id="Wtz-pd-BTO"/>
-                            <constraint firstItem="r60-B8-iyx" firstAttribute="leading" secondItem="JZ9-2b-Etk" secondAttribute="leading" constant="4" id="dwr-G2-mRL"/>
-                            <constraint firstAttribute="trailing" secondItem="pv3-K0-U1h" secondAttribute="trailing" constant="9" id="rpP-9H-846"/>
+                            <constraint firstAttribute="bottom" secondItem="r60-B8-iyx" secondAttribute="bottom" constant="8.5" id="Wtz-pd-BTO"/>
+                            <constraint firstItem="r60-B8-iyx" firstAttribute="leading" secondItem="JZ9-2b-Etk" secondAttribute="leading" constant="14" id="dwr-G2-mRL"/>
+                            <constraint firstAttribute="trailing" secondItem="pv3-K0-U1h" secondAttribute="trailing" constant="14" id="rpP-9H-846"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="pv3-K0-U1h"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="JZ9-2b-Etk" secondAttribute="trailing" id="2iO-b1-X7A"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="JZ9-2b-Etk" secondAttribute="bottom" id="OPN-mT-5lF"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="JZ9-2b-Etk" secondAttribute="trailing" id="Vo6-0G-3CC"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="JZ9-2b-Etk" secondAttribute="leading" id="XiG-iK-JJS"/>
-                    <constraint firstAttribute="topMargin" secondItem="JZ9-2b-Etk" secondAttribute="top" id="tLN-db-Nrv"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JZ9-2b-Etk" secondAttribute="trailing" constant="-8" id="2iO-b1-X7A"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="JZ9-2b-Etk" secondAttribute="bottom" constant="-8" id="OPN-mT-5lF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JZ9-2b-Etk" secondAttribute="trailing" constant="-8" id="Vo6-0G-3CC"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="JZ9-2b-Etk" secondAttribute="leading" constant="8" id="XiG-iK-JJS"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="XNV-GX-0SV" secondAttribute="trailing" constant="19" id="eJi-pZ-dKr"/>
+                    <constraint firstItem="XNV-GX-0SV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="gHV-WG-FKf"/>
+                    <constraint firstAttribute="topMargin" secondItem="JZ9-2b-Etk" secondAttribute="top" constant="8" id="tLN-db-Nrv"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="XNV-GX-0SV" secondAttribute="bottom" constant="-1.5" id="yGj-WP-bXc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bgView" destination="JZ9-2b-Etk" id="ptO-Ak-F0D"/>
-                <outlet property="faviImg" destination="pv3-K0-U1h" id="Oqe-uv-W8T"/>
+                <outlet property="faviImg" destination="XNV-GX-0SV" id="Ti7-9G-p71"/>
                 <outlet property="wordLabel" destination="r60-B8-iyx" id="r8T-8h-gBK"/>
             </connections>
         </tableViewCell>

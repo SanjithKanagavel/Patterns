@@ -13,11 +13,11 @@
 		<key>UserMessageTextColor</key>
 		<string>000000</string>
 		<key>ChatBubbleTimeFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ChatBubbleTimeFontSize</key>
 		<string>11.0f</string>
 		<key>ConversationUIFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>ActionButtonTextColor</key>
 		<string>000000</string>
 		<key>ActionButtonSelectedTextColor</key>
@@ -31,7 +31,7 @@
 		<key>InputTextFontColor</key>
 		<string>000000</string>
 		<key>InputTextFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>InputTextFontSize</key>
 		<string>14.0f</string>
 		<key>SendButtonColor</key>
@@ -41,7 +41,7 @@
 			<key>BackgroundColor</key>
 			<string>34AADC</string>
 			<key>MessageFontName</key>
-			<string>SYS_DEFAULT_FONT_NAME</string>
+			<string>HelveticaNeue-CondensedBlack</string>
 			<key>MessageFontSize</key>
 			<string>14.0f</string>
 			<key>MessageTextColor</key>
@@ -72,7 +72,7 @@
 		<key>YesButtonFontColor</key>
 		<string>FFFFFF</string>
 		<key>YesButtonFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>YesButtonFontSize</key>
 		<string>14</string>
 		<key>YesButtonBackgroundColor</key>
@@ -80,7 +80,7 @@
 		<key>NoButtonFontColor</key>
 		<string>535353</string>
 		<key>NoButtonFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>NoButtonFontSize</key>
 		<string>14</string>
 		<key>NoButtonBackgroundColor</key>
@@ -96,7 +96,7 @@
 		<key>LabelFontColor</key>
 		<string>535353</string>
 		<key>LabelFontName</key>
-		<string>SYS_DEFAULT_FONT_NAME</string>
+		<string>HelveticaNeue-CondensedBlack</string>
 		<key>LabelFontSize</key>
 		<string>15</string>
 	</dict>
@@ -168,7 +168,7 @@
 	<key>NavigationBar</key>
 	<dict>
 		<key>BackgroundColor</key>
-		<string>000000</string>
+		<string>424242</string>
 		<key>ButtonColor</key>
 		<string>FFFFFF</string>
 		<key>ButtonFontName</key>
@@ -200,13 +200,13 @@
 	<key>SearchBar</key>
 	<dict>
 		<key>CancelButtonColor</key>
-		<string>000000</string>
+		<string>424242</string>
 		<key>CancelButtonFontName</key>
 		<string>HelveticaNeue-CondensedBlack</string>
 		<key>CancelButtonFontSize</key>
 		<string>21.0f</string>
 		<key>FontColor</key>
-		<string>000000</string>
+		<string>424242</string>
 		<key>FontName</key>
 		<string>HelveticaNeue-CondensedBlack</string>
 		<key>FontSize</key>
@@ -249,7 +249,7 @@
 	<key>GridViewCell</key>
 	<dict>
 		<key>TitleFontColor</key>
-		<string>222222</string>
+		<string>424242</string>
 		<key>TitleFontName</key>
 		<string>HelveticaNeue-CondensedBlack</string>
 		<key>TitleFontSize</key>
