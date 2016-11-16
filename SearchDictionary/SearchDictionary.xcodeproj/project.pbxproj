@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B47A1710018349DF9141D3EE /* Pods_SearchDictionary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9400D6D9EB520A9EB9E60 /* Pods_SearchDictionary.framework */; };
+		C5661F991DDC330500E571DE /* RecentSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = C5661F981DDC330500E571DE /* RecentSearch.m */; };
+		C5661F9B1DDC396B00E571DE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5661F9A1DDC396B00E571DE /* AddressBook.framework */; };
+		C5661F9D1DDC39E800E571DE /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5661F9C1DDC39E800E571DE /* Contacts.framework */; };
 		C56D01161DD30EF000183AB2 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D01151DD30EF000183AB2 /* Utility.m */; };
 		C56D01191DD5EDD300183AB2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C56D01171DD5EDD300183AB2 /* Model.xcdatamodeld */; };
 		C56F93471DD8564900F827A2 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F93451DD8564900F827A2 /* SearchResultCell.m */; };
@@ -50,6 +53,10 @@
 /* Begin PBXFileReference section */
 		53DCA782DF1C00822FF22AE7 /* Pods_SearchDictionaryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchDictionaryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		702FB2C441D00F8833906288 /* Pods-SearchDictionary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchDictionary.release.xcconfig"; path = "Pods/Target Support Files/Pods-SearchDictionary/Pods-SearchDictionary.release.xcconfig"; sourceTree = "<group>"; };
+		C5661F971DDC330500E571DE /* RecentSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentSearch.h; sourceTree = "<group>"; };
+		C5661F981DDC330500E571DE /* RecentSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearch.m; sourceTree = "<group>"; };
+		C5661F9A1DDC396B00E571DE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		C5661F9C1DDC39E800E571DE /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		C56D01131DD30E2700183AB2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C56D01141DD30EF000183AB2 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		C56D01151DD30EF000183AB2 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
@@ -96,6 +103,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5661F9D1DDC39E800E571DE /* Contacts.framework in Frameworks */,
+				C5661F9B1DDC396B00E571DE /* AddressBook.framework in Frameworks */,
 				B47A1710018349DF9141D3EE /* Pods_SearchDictionary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +138,8 @@
 		B54A017C9FF3D7D4E56CC020 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5661F9C1DDC39E800E571DE /* Contacts.framework */,
+				C5661F9A1DDC396B00E571DE /* AddressBook.framework */,
 				F4F9400D6D9EB520A9EB9E60 /* Pods_SearchDictionary.framework */,
 				53DCA782DF1C00822FF22AE7 /* Pods_SearchDictionaryTests.framework */,
 				F32602409DC5364388CCA8B9 /* Pods_SearchDictionaryUITests.framework */,
@@ -180,6 +191,8 @@
 				C5EC3C231DD1DF06003F12AB /* ViewController.m */,
 				C5CE288B1DD9BFEE00BECA40 /* CustomSearchCell.h */,
 				C5CE288C1DD9BFEE00BECA40 /* CustomSearchCell.m */,
+				C5661F971DDC330500E571DE /* RecentSearch.h */,
+				C5661F981DDC330500E571DE /* RecentSearch.m */,
 				C5CE288D1DD9BFEE00BECA40 /* CustomSearchCell.xib */,
 				C56F934E1DD870B400F827A2 /* FavouriteCell.xib */,
 				C56F93461DD8564900F827A2 /* SearchResultCell.xib */,
@@ -412,6 +425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5661F991DDC330500E571DE /* RecentSearch.m in Sources */,
 				C5EC3C241DD1DF06003F12AB /* ViewController.m in Sources */,
 				C56F93471DD8564900F827A2 /* SearchResultCell.m in Sources */,
 				C5EC3C211DD1DF06003F12AB /* AppDelegate.m in Sources */,

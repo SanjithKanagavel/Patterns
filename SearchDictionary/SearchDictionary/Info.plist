@@ -49,5 +49,7 @@
 	</array>
 	<key>View controller-based status bar appearance </key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+	<string>Used for recent searches</string>
 </dict>
 </plist>

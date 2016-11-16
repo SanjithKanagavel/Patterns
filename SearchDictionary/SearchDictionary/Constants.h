@@ -44,6 +44,8 @@ static NSString *dateFormat = @"dd-mm-yyyy hh:mm:ss";
 static NSString *numRegex = @"[0-9]*";
 static NSString *matchPredicate = @"SELF MATCHES %@";
 static NSString *searchValueEquals = @"searchValue == %@";
+static NSString *searchStrEquals = @"searchStr == %@";
+
 
 //Flat Colors
 static NSString *turquoise = @"#1abc9c";

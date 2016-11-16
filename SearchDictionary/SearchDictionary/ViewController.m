@@ -3,16 +3,19 @@
 #import "RecentsMO.h"
 #import "FavouriteMO.h"
 #import "CustomSearchCell.h"
+#import "RecentSearch.h"
+#import "Contacts/Contacts.h"
 
-@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate>
 @end
 
 @implementation ViewController
 
 BOOL startChange;
 NSInteger count,screenWidth,screenHeight;
-NSArray *resArr,*colors,*recentSearches;
-NSMutableSet *tempArr;
+NSArray *colors;
+NSMutableArray *recentSearches,*resArr,*contacts,*suggestions;
+NSMutableSet *tempSet;
 NSSet *wordSet;
 NSThread *reloadThread;
 CGFloat KeyboardHeight;
@@ -73,7 +76,7 @@ CGFloat KeyboardHeight;
     [self.suggestionTableView setContentOffset:CGPointZero animated:YES];
     [self.view addSubview:self.suggestionView];
     [self fetchRecentSearches];
-    [self.suggestionTableView reloadData];
+    [self showSuggestions:emptyStr];
     [UIView animateWithDuration:0 delay:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.suggestionView setAlpha:1.0];
         [self.suggestionTableView setAlpha:1.0];
@@ -100,12 +103,14 @@ CGFloat KeyboardHeight;
     wordSet = [NSSet setWithArray: [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:wordsStr ofType:txtStr] encoding:NSUTF8StringEncoding error:NULL] componentsSeparatedByString:newLineStr]];
     count = 0;
     startChange = false;
-    resArr = [[NSArray alloc] init];
-    tempArr = [[NSMutableSet alloc]init];
+    resArr = [[NSMutableArray alloc]init];
     screenWidth = [[UIScreen mainScreen]bounds].size.width;
     screenHeight = [[UIScreen mainScreen]bounds].size.height;
-    colors = @[ asbestos ];
-    recentSearches = [[NSArray alloc]init];
+    tempSet = [[NSMutableSet alloc]init];
+    colors = @[ asbestos ]; //removed all other colors
+    recentSearches = [[NSMutableArray alloc]init];
+    contacts = [[NSMutableArray alloc]init];
+    suggestions = [[NSMutableArray alloc]init];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.indicatorVisualView  = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
@@ -139,6 +144,7 @@ CGFloat KeyboardHeight;
     [self styleNavigation];
     UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
+    [self fetchContacts];
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:cancelStr
                                                                    style:UIBarButtonItemStyleBordered target:self
@@ -198,9 +204,9 @@ CGFloat KeyboardHeight;
         [self getCombinations:searchStr numberIndex:0 groups:nil lastGroupIndex:0 remainingPointers:i];
         NSLog(@"3");
     }
-    tempArr = [self processSet];
-    NSLog(@"4");
-    resArr = [tempArr allObjects];
+    tempSet = [self processSet];
+    [resArr removeAllObjects];
+    [resArr addObjectsFromArray:[tempSet allObjects]];
     NSLog(@"5");
     [self sortArray];
 }
@@ -234,7 +240,7 @@ CGFloat KeyboardHeight;
         [reloadThread cancel];
     }
     reloadThread = [[NSThread alloc] initWithBlock:^(void){
-        [tempArr removeAllObjects];
+        [tempSet removeAllObjects];
         [self reloadData:searchBar.text];
     }];
     
@@ -250,6 +256,10 @@ CGFloat KeyboardHeight;
 
 -(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
     return YES;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self showSuggestions:searchText];
 }
 
 #pragma mark - Activity Indicator functions
@@ -343,9 +353,6 @@ int combinationsCount = 0;
         {
             [self getCombinations:numberSequence numberIndex:numberIndex+1 groups:copy2 lastGroupIndex:lastGroupIndex remainingPointers:remainingPointers];
         }
-        
-        copy1 = nil;
-        copy2 = nil;
     }
 }
 
@@ -354,8 +361,8 @@ int combinationsCount = 0;
         formation = [[NSString alloc]init];
     }
     if(index == [groups count]) { //insert
-        if(![tempArr containsObject:formation] && ![[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:formation]) { //Check for duplicates
-                [tempArr addObject:formation];
+        if(![tempSet containsObject:formation] && ![[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:formation]) { //Check for duplicates
+                [tempSet addObject:formation];
         }
         return;
     }
@@ -371,8 +378,6 @@ int combinationsCount = 0;
         [set1 intersectSet: wordSet];
         NSArray *arr = [set1 allObjects];
         [possibleCombos addObjectsFromArray:arr];
-        arr = nil;
-        set1 = nil;
     }
     //Retrieve combos possible and find prepare word combos to find in dict.
     if([possibleCombos count] == 0) {
@@ -390,17 +395,18 @@ int combinationsCount = 0;
             [self applyWordCombinations:groups index:index+1 formation:copyStr];
         }
     }
-    combinationArr = nil;
-    possibleCombos = nil;
 }
 
 -(void) sortArray {
     NSLog(@"6");
-    /*resArr = [resArr sortedArrayUsingComparator:^NSComparisonResult(NSString *first, NSString *second){
+    NSArray *t_Array = [NSArray arrayWithArray:resArr];
+    t_Array = [t_Array sortedArrayUsingComparator:^NSComparisonResult(NSString *first, NSString *second){
         return [self sortToText:first withLengthOf:second];
-    }];*/
-    NSLog(@"7");
+    }];
+    [resArr removeAllObjects];
+    [resArr addObjectsFromArray:t_Array];
     dispatch_async(dispatch_get_main_queue(),^(void){
+        [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top)];
         [self.tableView reloadData];
         [self hideActivityIndicator];
         NSLog(@"8");
@@ -409,8 +415,11 @@ int combinationsCount = 0;
 
 -(NSMutableSet *)processSet {
     NSMutableSet *refinedSet = [[NSMutableSet alloc]init];
-    for(NSString *str in tempArr){
-        [refinedSet addObject:[self processString:str]];
+    for(NSString *str in tempSet){
+        NSString *val = [self processString:str];
+        if(![[NSPredicate predicateWithFormat:matchPredicate, numRegex] evaluateWithObject:val]) {
+            [refinedSet addObject:val];
+        }
     }
     return refinedSet;
 }
@@ -427,6 +436,7 @@ int combinationsCount = 0;
     pString = [pString stringByAppendingString:subArrays[[subArrays count]-1]];
     return pString;
 }
+
 -(NSInteger) countNumbers : (NSString *)str {
     NSInteger count = 0;
     for(int i = 0;i<[str length];i++){
@@ -484,17 +494,42 @@ int combinationsCount = 0;
 }
 
 
-- (void)addSearches:(NSString *)sStr {
+- (void)addSearches:(NSString *)str {
+    if(![self deleteExisitingSimilarSearch:str]){
+        return;
+    }
     NSManagedObjectContext *context = [self.recentResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.recentResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     NSDate *date = [NSDate date];
     [newManagedObject setValue:date forKey:updateTime];
-    [newManagedObject setValue:sStr forKey:searchStr];
+    [newManagedObject setValue:str forKey:searchStr];
     NSError *error = nil;
     if (![context save:&error]) {
         abort();
     }
+}
+
+-(BOOL) deleteExisitingSimilarSearch:(NSString *)str {
+    NSManagedObjectContext *moc = [self.recentResultsController managedObjectContext];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:recents];
+    NSPredicate *searchStrPredicate = [NSPredicate predicateWithFormat:searchStrEquals, str];
+    request.predicate = searchStrPredicate;
+    [request setReturnsObjectsAsFaults:NO];
+    NSError *error = nil;
+    NSArray *results = [moc executeFetchRequest:request error:&error];
+    
+    if (!results) {
+        return NO;
+    }
+    for (NSManagedObject *product in results) {
+        [moc deleteObject:product];
+    }
+    if([moc hasChanges] && [moc save:&error]) {
+        NSLog(@"deleted successfully");
+    }
+    return YES;
+
 }
 
 -(void) fetchRecentSearches {
@@ -509,11 +544,73 @@ int combinationsCount = 0;
     if (!results) {
         abort();
     }
-    NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc]init];
+    [recentSearches removeAllObjects];
     for(RecentsMO *recent in results) {
-        [set addObject:recent.searchStr];
+        RecentSearch *rs = [[RecentSearch alloc]init];
+        rs.phoneNumber = recent.searchStr;
+        rs.fromPhoneBook = NO;
+        [recentSearches addObject:rs];
     }
-    recentSearches = [set array];
+}
+
+-(void) fetchContacts {
+    CNContactStore *store = [[CNContactStore alloc]init];
+    [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted,NSError *_Nullable error){
+        if(granted == YES) {
+            NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:store.defaultContainerIdentifier];
+            NSArray *rawContacts = [store unifiedContactsMatchingPredicate:predicate keysToFetch:@[CNContactPhoneNumbersKey] error:nil];
+            for(CNContact *contact in rawContacts){
+                for(CNLabeledValue *phone in contact.phoneNumbers) {
+                    [contacts addObject:[self formatPhoneNumber:[phone.value stringValue]]];
+                }
+            }
+        }
+    }];
+    for(NSString *contact in contacts) {
+        NSLog(@"%@",contact);
+    }
+}
+
+-(NSString *)formatPhoneNumber :(NSString *)phoneNumber {
+    if([phoneNumber isEqualToString:@"9994491892"]) {
+        NSLog(@"Equal");
+    }
+    phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"[^0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [phoneNumber length])];
+    return phoneNumber;
+}
+
+-(void) showSuggestions : (NSString *) str {
+    [suggestions removeAllObjects];
+    if( [str length] == 0 ) {
+        [suggestions addObjectsFromArray:recentSearches];
+    } else {
+        for(RecentSearch *rS in recentSearches){
+            if([rS.phoneNumber hasPrefix:str]){
+                RecentSearch *recSearch = [[RecentSearch alloc]init];
+                recSearch.phoneNumber = rS.phoneNumber;
+                recSearch.fromPhoneBook = NO;
+                [suggestions addObject:recSearch];
+            }
+        }
+        for(NSString *contact in contacts){
+            if([contact hasPrefix:str] && ![self isDuplicateSuggestion:contact suggestionsArr:suggestions]){
+                RecentSearch *recSearch = [[RecentSearch alloc]init];
+                recSearch.phoneNumber = contact;
+                recSearch.fromPhoneBook = YES;
+                [suggestions addObject:recSearch];
+            }
+        }
+    }
+    [self.suggestionTableView reloadData];
+}
+
+-(BOOL) isDuplicateSuggestion :(NSString *)str suggestionsArr:(NSMutableArray *)suggestionsArr {
+    for(RecentSearch *rS in suggestionsArr) {
+        if([rS.phoneNumber isEqual:str]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)addFavourite:(NSString *)sStr searchValue:(NSString *)sVal {
@@ -577,7 +674,8 @@ int combinationsCount = 0;
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else {
-        [self startSearch:recentSearches[indexPath.row]];
+        RecentSearch *rs = suggestions[indexPath.row];
+        [self startSearch:rs.phoneNumber];
     }
 }
 
@@ -599,7 +697,7 @@ int combinationsCount = 0;
         return [resArr count];
     }
     else {
-        return [recentSearches count];
+        return [suggestions count];
     }
 }
 
@@ -623,17 +721,19 @@ int combinationsCount = 0;
     }
     else {
         CustomSearchCell *cell;
+        RecentSearch *rs = suggestions[indexPath.row];
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:customSearchCell owner:self options:nil];
         cell = [nib objectAtIndex:0];
         [cell setBackgroundColor:[UIColor clearColor]];
-        cell.recentTextLbl.text = recentSearches[indexPath.row];
+        cell.recentTextLbl.text = rs.phoneNumber;
         cell.vewCont = self;
+        [cell updateIcon:rs.fromPhoneBook];
         return cell;
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -666,7 +766,35 @@ int combinationsCount = 0;
 }
 
 - (NSComparisonResult)sortToText:(NSString *)firstStr withLengthOf:(NSString *)secondStr {
-    NSInteger firstCount = [self countNumbers:firstStr];
+    
+    //sort by groups Group is major priority and name is the minor priority
+    NSInteger firstNoCount = [self countNumbers:firstStr];
+    NSInteger secondNoCount = [self countNumbers:secondStr];
+    
+    NSInteger firstGroupCount = [[firstStr componentsSeparatedByString:@"-"] count];
+    NSInteger secondGroupCount = [[secondStr componentsSeparatedByString:@"-"] count];
+    
+    if ( firstNoCount == secondNoCount ) {
+        if(firstGroupCount==secondGroupCount)
+            return NSOrderedSame;
+        else if(firstGroupCount < secondGroupCount)
+            return NSOrderedAscending;
+        else
+            return NSOrderedDescending;
+    }
+    else if (firstNoCount > secondNoCount) {
+        return NSOrderedDescending;
+    }
+    else if (firstGroupCount > secondGroupCount && firstGroupCount < secondGroupCount) {
+        return NSOrderedDescending;
+    }
+    else {
+        return NSOrderedAscending;
+    }
+    //else if (firstNoCount == secondNoCount && firstGroupCount == secondGroupCount)
+    //    return NSOrderedSame;
+    
+    /*NSInteger firstCount = [self countNumbers:firstStr];
     NSInteger secondCount = [self countNumbers:secondStr];
     if (firstCount > secondCount)
         return NSOrderedDescending;
@@ -674,6 +802,7 @@ int combinationsCount = 0;
         return NSOrderedAscending;
     else
         return NSOrderedAscending;
+     */
 }
 
 @end

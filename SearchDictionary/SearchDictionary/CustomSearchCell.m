@@ -1,4 +1,4 @@
-#import "CustomSearchCell.h"
+        #import "CustomSearchCell.h"
 
 @implementation CustomSearchCell
 
@@ -14,6 +14,10 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+-(void) updateIcon : (BOOL) fromPhonebook {
+    [self.recentImgView setImage:[UIImage imageNamed:(fromPhonebook)?@"addressBook":@"search"]];
 }
 
 @end
