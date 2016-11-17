@@ -26,3 +26,7 @@
 #### Output
 ##### 1800-my-apple
 <img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/case4.png" width="300px"/>
+
+*
+Used CoreData for storing recent searches and used Contacts Framework for fetching contacts and in picking contacts picker.
+*
