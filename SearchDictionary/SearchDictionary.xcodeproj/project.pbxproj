@@ -307,7 +307,7 @@
 				TargetAttributes = {
 					C5EC3C181DD1DF05003F12AB = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = AAKS6C6U36;
+						DevelopmentTeam = VU37S89ZUN;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -594,8 +594,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = AAKS6C6U36;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VU37S89ZUN;
 				INFOPLIST_FILE = SearchDictionary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanjithkanagavel.SearchDictionary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -611,8 +613,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = AAKS6C6U36;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VU37S89ZUN;
 				INFOPLIST_FILE = SearchDictionary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanjithkanagavel.SearchDictionary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
