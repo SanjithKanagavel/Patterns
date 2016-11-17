@@ -371,7 +371,7 @@ int combinationsCount = 0;
     NSMutableArray *possibleCombos = [[NSMutableArray alloc]init];
     //long limit = ([self.searchBar.text length]/2)-1;
     //if([groups[index] length] > ( limit < 0 ? 1 : limit )) {
-    if([groups[index] length] > 2) {
+    if([groups[index] length] > 0) {
         NSLog(@"1");
         combinationArr = [self getWordCombinations:emptyStr word:groups[index]];
         NSMutableSet *set1 = [NSMutableSet setWithArray: combinationArr];
