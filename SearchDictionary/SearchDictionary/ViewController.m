@@ -5,8 +5,9 @@
 #import "CustomSearchCell.h"
 #import "RecentSearch.h"
 #import "Contacts/Contacts.h"
+#import "ContactsUI/ContactsUI.h"
 
-@interface ViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate>
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate,CNContactPickerDelegate>
 @end
 
 @implementation ViewController
@@ -61,7 +62,7 @@ CGFloat KeyboardHeight;
         UIVisualEffect *blurEffect;
         blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         self.suggestionView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        self.suggestionView.frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) );
+        self.suggestionView.frame = CGRectMake( CGRectGetMinX(self.aBImageView.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) );
         self.suggestionTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - KeyboardHeight - 100) style:UITableViewStylePlain];
         self.suggestionTableView.backgroundColor = [UIColor clearColor];
         self.suggestionTableView.delegate = self;
@@ -114,7 +115,7 @@ CGFloat KeyboardHeight;
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.indicatorVisualView  = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    self.indicatorVisualView .frame = CGRectMake( CGRectGetMinX(self.searchBar.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) - CGRectGetMinY(self.navigationController.navigationBar.frame) );
+    self.indicatorVisualView .frame = CGRectMake( CGRectGetMinX(self.aBImageView.frame),CGRectGetMaxY(self.searchBar.frame), screenWidth, screenHeight - CGRectGetMaxY(self.searchBar.frame) - CGRectGetMinY(self.navigationController.navigationBar.frame) );
     self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.indicator setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
     [self.indicator setColor:[UIColor whiteColor]];
@@ -122,7 +123,10 @@ CGFloat KeyboardHeight;
     [self.view addSubview:self.indicatorVisualView];
     [self.indicator setCenter:CGPointMake(self.indicatorVisualView.center.x,self.indicatorVisualView.frame.size.height/2)];
     [self hideActivityIndicator];
-    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showContactsPicker)];
+    singleTap.numberOfTapsRequired = 1;
+    [self.aBImageView setUserInteractionEnabled:YES];
+    [self.aBImageView addGestureRecognizer:singleTap];
     [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:searchResultCell];
     UIView *view = [[UIView alloc]init];
     view.frame = self.tableView.frame;
@@ -552,6 +556,22 @@ int combinationsCount = 0;
         [recentSearches addObject:rs];
     }
 }
+
+-(void) showContactsPicker {
+    CNContactPickerViewController *contactPickerController=[[CNContactPickerViewController alloc]init];
+    [self presentViewController:contactPickerController animated:YES completion:nil];
+    contactPickerController.delegate=self;
+}
+
+- (void)contactPicker:(CNContactPickerViewController *)picker
+    didSelectContact:(CNContact *)contact {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSString *phoneNumber = [self formatPhoneNumber:[contact.phoneNumbers[0].value stringValue]];
+    self.searchBar.text = phoneNumber;
+    [self searchBarSearchButtonClicked:self.searchBar];
+    [self.suggestionView removeFromSuperview];
+}
+
 
 -(void) fetchContacts {
     CNContactStore *store = [[CNContactStore alloc]init];

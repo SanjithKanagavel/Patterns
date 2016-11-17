@@ -9,6 +9,7 @@
 @interface ViewController : UIViewController <NSFetchedResultsControllerDelegate>
     @property (weak, nonatomic) IBOutlet UITableView *tableView;
     @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+    @property (weak, nonatomic) IBOutlet UIImageView *aBImageView;
     @property (strong, nonatomic) UIActivityIndicatorView *indicator;
     @property (strong, nonatomic) UIVisualEffectView *indicatorVisualView;
     @property (strong, nonatomic) UILabel *label;

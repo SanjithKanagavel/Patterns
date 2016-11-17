@@ -22,6 +22,7 @@
 		C5CE288F1DD9BFEE00BECA40 /* CustomSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CE288D1DD9BFEE00BECA40 /* CustomSearchCell.xib */; };
 		C5CE28981DD9DD8800BECA40 /* FavouriteMO.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE28971DD9DD8800BECA40 /* FavouriteMO.m */; };
 		C5CE289B1DD9DDEE00BECA40 /* RecentsMO.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE289A1DD9DDEE00BECA40 /* RecentsMO.m */; };
+		C5D948561DDD914700B9EDF0 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D948551DDD914600B9EDF0 /* ContactsUI.framework */; };
 		C5EC3C1E1DD1DF06003F12AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C1D1DD1DF06003F12AB /* main.m */; };
 		C5EC3C211DD1DF06003F12AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C201DD1DF06003F12AB /* AppDelegate.m */; };
 		C5EC3C241DD1DF06003F12AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC3C231DD1DF06003F12AB /* ViewController.m */; };
@@ -76,6 +77,7 @@
 		C5CE28971DD9DD8800BECA40 /* FavouriteMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteMO.m; sourceTree = "<group>"; };
 		C5CE28991DD9DDEE00BECA40 /* RecentsMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsMO.h; sourceTree = "<group>"; };
 		C5CE289A1DD9DDEE00BECA40 /* RecentsMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsMO.m; sourceTree = "<group>"; };
+		C5D948551DDD914600B9EDF0 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		C5EC3C191DD1DF06003F12AB /* SearchDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EC3C1D1DD1DF06003F12AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C5EC3C1F1DD1DF06003F12AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5D948561DDD914700B9EDF0 /* ContactsUI.framework in Frameworks */,
 				C5661F9D1DDC39E800E571DE /* Contacts.framework in Frameworks */,
 				C5661F9B1DDC396B00E571DE /* AddressBook.framework in Frameworks */,
 				B47A1710018349DF9141D3EE /* Pods_SearchDictionary.framework in Frameworks */,
@@ -138,6 +141,7 @@
 		B54A017C9FF3D7D4E56CC020 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5D948551DDD914600B9EDF0 /* ContactsUI.framework */,
 				C5661F9C1DDC39E800E571DE /* Contacts.framework */,
 				C5661F9A1DDC396B00E571DE /* AddressBook.framework */,
 				F4F9400D6D9EB520A9EB9E60 /* Pods_SearchDictionary.framework */,
