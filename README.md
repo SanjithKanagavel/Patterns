@@ -3,29 +3,29 @@
 <pre align="center"><img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/phonePad.png"/></pre>
 ### Examples :
 
-#### Input 
+#### Input
 ##### 18003569377
 #### Output  
 ##### 1800-flowers
-<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/case1.png" width="300px"/>
+<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/IO1.png" width="300px"/>
 
-#### Input 
+#### Input
 ##### 43474663
 #### Output  
 ##### he-is-good
-<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/case2.png" width="300px"/>
+<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/IO2.png" width="300px"/>
 
-#### Input 
+#### Input
 ##### 43264663
 #### Output  
 ##### if-am-good
-<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/case3.png" width="300px"/>
+<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/IO3.png" width="300px"/>
 
 #### Input
 ##### 18006927753
 #### Output
 ##### 1800-my-apple
-<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/case4.png" width="300px"/>
+<img src="https://github.com/SanjithKanagavel/Patterns/blob/master/Images/IO4.png" width="300px"/>
 
 *
 Used CoreData for storing recent searches and used Contacts Framework for fetching contacts and in picking contacts picker.
